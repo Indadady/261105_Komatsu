@@ -97,7 +97,7 @@
             .tm-venue-desc { font-size: 10px; color: #334155; font-weight: normal; margin-top: 2px; line-height: 1.35; }
 
             /* 표 규격화 */
-            #print-table { width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; word-break: keep-all !important; border: 2px solid #1e293b !important; font-size: 11px; }
+            #print-table { width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; word-break: keep-all !important; border: 2px solid #1e293b !important; font-size: 10.5px; }
             #print-table th, #print-table td { border: 1px solid #1e293b !important; padding: 6px 8px !important; }
             #print-table th { background-color: #f8fafc !important; font-weight: bold; text-align: center; }
             
@@ -110,7 +110,8 @@
             #print-table td:nth-child(2) { vertical-align: top; line-height: 1.4; }
             #print-table td:nth-child(3) { text-align: center; vertical-align: middle; font-size: 11px; }
 
-            tr { page-break-inside: avoid; }
+            #print-table tbody tr { page-break-inside: auto; }
+            #print-table tbody tr td:first-child { page-break-inside: avoid; }
             #print-table tbody tr:first-child td { border-top: 2px solid #1e293b !important; }
             
             /* 내부 콘텐츠 스타일링 */
@@ -119,8 +120,12 @@
             .tm-highlight { font-weight: 700; color: #000; }
             
             .tm-desc-list { list-style: none; margin: 4px 0 !important; padding-left: 5px; }
-            .tm-desc-list li { position: relative; padding-left: 12px; margin-bottom: 3px !important; line-height: 1.3; color: #000; }
-            .tm-desc-list li::before { content: '■'; font-size: 8px; position: absolute; left: 0; top: 3px; color: #0284c7; }
+            .tm-desc-list li { position: relative; padding-left: 12px; margin-bottom: 7px !important; line-height: 1.35; color: #000; }
+            .tm-desc-list li:last-child { margin-bottom: 2px !important; }
+            .tm-desc-list li::before { content: '■'; font-size: 8px; position: absolute; left: 0; top: 4px; color: #0284c7; }
+            .tm-venue-title { display: block; font-weight: 700; color: #000; margin-bottom: 2px; }
+            .tm-venue-text { display: block; font-size: 10px; color: #334155; font-weight: normal; line-height: 1.4; }
+            .tm-venue-text.tm-star { color: #b91c1c; font-weight: 600; }
             
             .tm-hotel-divider { border: 0; border-top: 1px dashed #94a3b8; margin: 6px 0 4px 0; }
             .tm-hotel-info { font-size: 11px !important; color: #000; font-weight: bold;}
@@ -728,35 +733,58 @@
             
             <tbody>
                 <tr><td>1일차<br><span class="text-xs font-normal">(11.5)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 인천 07:50 → 고마쓰 09:40</div>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 대한항공 · 인천 07:50 → 고마쓰 09:40</div>
                     <ul class="tm-desc-list">
-                        <li><span class="tm-highlight">윤봉길 의사 암장지</span> 참배 — 독립운동사·국제교류 의미 되새김</li>
-                        <li><span class="tm-highlight">겐로쿠엔·가나자와성·히가시차야</span> — 일본 3대 정원·전통 거리</li>
-                        <li>다카오카/도야마 호텔 — 익일 자매학교 방문 대비</li>
+                        <li><span class="tm-venue-title">고마쓰 공항 입국</span><span class="tm-venue-text">Visit Japan Web QR·입국심사 후 전용버스 탑승</span></li>
+                        <li><span class="tm-venue-title">고마쓰 → 가나자와 이동</span><span class="tm-venue-text">이시카와현 가나자와 시내 (차량 약 50분)</span></li>
+                    </ul>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오후</span> 가나자와 역사·문화 탐방</div>
+                    <ul class="tm-desc-list">
+                        <li><span class="tm-venue-title">윤봉길 의사 암장지(기념관)</span><span class="tm-venue-text">1932년 하얼빈 의거 전 거점. 독립운동사·국제교류 의미 되새김</span></li>
+                        <li><span class="tm-venue-title">겐로쿠엔</span><span class="tm-venue-text">일본 3대 정원. 조경·연못·가을 단풍 산책</span></li>
+                        <li><span class="tm-venue-title">가나자와성 공원</span><span class="tm-venue-text">성곽·전망대 견학, 무로마치~에도 시대 역사 이해</span></li>
+                        <li><span class="tm-venue-title">히가시 차야 거리</span><span class="tm-venue-text">전통 기모노·다도·오차야 문화 체험 거리</span></li>
+                        <li><span class="tm-venue-title">다카오카/도야마 호텔</span><span class="tm-venue-text">익일 자매학교(伏木高校) 방문 전 숙박·단체 브리핑</span></li>
                     </ul>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 기내</div><div class="tm-meal-simple"><strong>중:</strong> 현지</div><div class="tm-meal-simple"><strong>석:</strong> 현지</div></div></td></tr>
                 <tr><td>2일차<br><span class="text-xs font-normal">(11.6)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">전일</span> ★ 富山県立伏木高等学校</div>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> ★ 富山県立伏木高等学校 (자매학교)</div>
                     <ul class="tm-desc-list">
-                        <li>환영식·수업 참관·동아리·한일 학생 교류</li>
-                        <li>호스트 가정 <span class="tm-highlight">홈스테이 1박</span> — 가족 문화·일상 회화</li>
+                        <li><span class="tm-venue-title">환영식</span><span class="tm-venue-text tm-star">본 행사 최우선 — 도야마현립·항구도시 후시키</span></li>
+                        <li><span class="tm-venue-title">수업 참관</span><span class="tm-venue-text">일본어·사회 등 정규 수업 체험, 학교 생활 이해</span></li>
+                        <li><span class="tm-venue-title">동아리·문화 프로그램</span><span class="tm-venue-text">학교 부서·문화 체험 (현지 학교 일정에 따름)</span></li>
+                        <li><span class="tm-venue-title">한·일 학생 교류</span><span class="tm-venue-text">1:1 또는 소그룹 대화·소개·교류 활동</span></li>
                     </ul>
-                    <p class="tm-venue-desc">도야마현립·항구도시 후시키. 본 행사 최우선 프로그램.</p>
+                    <div class="tm-time-flow"><span class="tm-time-tag">저녁</span> 호스트 홈스테이</div>
+                    <ul class="tm-desc-list">
+                        <li><span class="tm-venue-title">호스트 가정 숙박 (1박)</span><span class="tm-venue-text">학교 배정 가정, 가족 문화·일상 회화. 인솔교사·코디 24시간 연락</span></li>
+                    </ul>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 호텔</div><div class="tm-meal-simple"><strong>중:</strong> 학교</div><div class="tm-meal-simple"><strong>석:</strong> 홈스테이</div></div></td></tr>
                 <tr><td>3일차<br><span class="text-xs font-normal">(11.7)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">전일</span> 교토 문화탐방</div>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> (선택) 세계유산 마을</div>
                     <ul class="tm-desc-list">
-                        <li>(선택) 시라카와고·고카야마 세계유산 가옥</li>
-                        <li><span class="tm-highlight">금각사</span> — 세계문화유산·무로마치 역사</li>
-                        <li><span class="tm-highlight">도시샤대·청수사·산넨자카</span> — 명문대·사찰·돌길</li>
-                        <li>교토 시내 호텔</li>
+                        <li><span class="tm-venue-title">시라카와고</span><span class="tm-venue-text">합각 지붕 가옥 밀집지. 교통·일정에 따라 선택</span></li>
+                        <li><span class="tm-venue-title">고카야마</span><span class="tm-venue-text">유네스코 세계유산 전통 마을 (선택)</span></li>
+                    </ul>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오후</span> 교토 문화탐방</div>
+                    <ul class="tm-desc-list">
+                        <li><span class="tm-venue-title">금각사(킨카쿠지)</span><span class="tm-venue-text">세계문화유산·금박 사찰, 무로마치 시대 역사·건축</span></li>
+                        <li><span class="tm-venue-title">도시샤대학</span><span class="tm-venue-text">사립 명문대 캠퍼스 견학, 고등교육·학풍 체험</span></li>
+                        <li><span class="tm-venue-title">청수사(쿄미즈데라)</span><span class="tm-venue-text">교토 대표 사찰·전망, 「쿠시다노미즈」 문화</span></li>
+                        <li><span class="tm-venue-title">산넨자카·니넨자카</span><span class="tm-venue-text">돌길·전통 거리 산책, 사진·기념품</span></li>
+                        <li><span class="tm-venue-title">교토 시내 호텔</span><span class="tm-venue-text">4일차 오사카 이동 전 숙박, 남녀 층·방 분리</span></li>
                     </ul>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 홈스테이</div><div class="tm-meal-simple"><strong>중:</strong> 현지</div><div class="tm-meal-simple"><strong>석:</strong> 현지</div></div></td></tr>
                 <tr><td>4일차<br><span class="text-xs font-normal">(11.8)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">전일</span> 오사카 → 간사이 → 인천</div>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 오사카 시내</div>
                     <ul class="tm-desc-list">
-                        <li><span class="tm-highlight">오사카성·도톰보리</span> — 성곽·먹자골목</li>
-                        <li>18:10 간사이 출발 · 20:25 인천 (KE)</li>
+                        <li><span class="tm-venue-title">오사카성 공원</span><span class="tm-venue-text">도요토미 히데요시 관련 성곽·박물관, 근세사 교육</span></li>
+                        <li><span class="tm-venue-title">도톰보리</span><span class="tm-venue-text">글리코 간판·먹자골목, 자유시간·간식</span></li>
+                    </ul>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오후</span> 귀국</div>
+                    <ul class="tm-desc-list">
+                        <li><span class="tm-venue-title">간사이 국제공항</span><span class="tm-venue-text">체크인·출국 수속 (단체 이동)</span></li>
+                        <li><span class="tm-venue-title">대한항공 KE · 간사이 18:10 → 인천 20:25</span><span class="tm-venue-text">현지 시각 기준, 확정 시 변동 가능</span></li>
                     </ul>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 호텔</div><div class="tm-meal-simple"><strong>중:</strong> 자유</div><div class="tm-meal-simple"><strong>석:</strong> 기내</div></div></td></tr>
             </tbody>
