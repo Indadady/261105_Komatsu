@@ -86,29 +86,31 @@
             .print-doc-no { font-size: 12px; color: #555; }
             .print-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 15px; font-family: 'Nanum Myeongjo', serif; }
             
-            /* 개요 박스 — 의미 단위 줄바꿈 */
-            .print-overview { background-color: #f8fafc !important; border: 1px solid #94a3b8 !important; border-radius: 6px; padding: 10px 14px; margin-bottom: 15px; font-size: 12px; word-break: keep-all !important; overflow-wrap: normal !important; }
-            .print-overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
-            .print-overview-item { display: flex; align-items: flex-start; gap: 6px; line-height: 1.45; }
-            .print-overview .label { flex-shrink: 0; font-weight: bold; color: #0284c7; min-width: 4.2em; }
-            .print-overview-val { flex: 1; }
-            .tm-meal-wrapper { display: flex; flex-direction: column; gap: 3px; justify-content: center; }
-            .tm-meal-simple { line-height: 1.35; white-space: nowrap; }
-            .tm-venue-desc { font-size: 10px; color: #334155; font-weight: normal; margin-top: 2px; line-height: 1.35; }
+            /* 개요 박스 — 2줄 압축 (제안사는 하단 푸터) */
+            .print-overview { background-color: #f8fafc !important; border: 1px solid #94a3b8 !important; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 11.5px; word-break: keep-all !important; }
+            .print-overview-line { line-height: 1.5; margin-bottom: 3px; }
+            .print-overview-line:last-child { margin-bottom: 0; }
+            .print-overview .label { font-weight: bold; color: #0284c7; margin-right: 4px; }
+            .print-overview-sep { color: #94a3b8; margin: 0 10px; }
 
             /* 표 규격화 */
             #print-table { width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; word-break: keep-all !important; border: 2px solid #1e293b !important; font-size: 10.5px; }
             #print-table th, #print-table td { border: 1px solid #1e293b !important; padding: 6px 8px !important; }
             #print-table th { background-color: #f8fafc !important; font-weight: bold; text-align: center; }
             
-            /* 비율: 일차(11%), 상세일정(75%), 식사(14%) */
-            #print-table colgroup col:nth-child(1) { width: 11% !important; }
-            #print-table colgroup col:nth-child(2) { width: 75% !important; }
-            #print-table colgroup col:nth-child(3) { width: 14% !important; }
+            /* 비율: 일차(10%), 상세일정(68%), 숙소·이동·식사·비고(22%) */
+            #print-table colgroup col:nth-child(1) { width: 10% !important; }
+            #print-table colgroup col:nth-child(2) { width: 68% !important; }
+            #print-table colgroup col:nth-child(3) { width: 22% !important; }
             
             #print-table td:nth-child(1) { text-align: center; vertical-align: top; background-color: #f8fafc !important; font-weight: bold; }
             #print-table td:nth-child(2) { vertical-align: top; line-height: 1.4; }
-            #print-table td:nth-child(3) { text-align: center; vertical-align: middle; font-size: 11px; }
+            #print-table td.tm-side-cell { text-align: left !important; vertical-align: top !important; font-size: 10px; background-color: #fafbfc !important; }
+            .tm-side-block { margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px dashed #cbd5e1; }
+            .tm-side-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+            .tm-side-label { font-weight: bold; color: #0284c7; font-size: 10px; margin-bottom: 2px; }
+            .tm-side-text { line-height: 1.4; color: #1e293b; }
+            .tm-side-text strong { color: #000; }
 
             #print-table tbody tr { page-break-inside: auto; }
             #print-table tbody tr td:first-child { page-break-inside: avoid; }
@@ -707,13 +709,16 @@
         </div>
         
         <h1 class="print-title">일본 자매교류 3박4일 청명고등학교 방문 일정(안)</h1>
+        <p class="text-center text-xs text-slate-500 -mt-3 mb-3">제안: 큐비글로벌(QB Global)</p>
         
         <div class="print-overview">
-            <div class="print-overview-grid">
-                <div class="print-overview-item"><span class="label">행사기간</span><span class="print-overview-val">2026. 11. 05(목) ~ 11. 08(일)<br>[3박 4일]</span></div>
-                <div class="print-overview-item"><span class="label">이용항공</span><span class="print-overview-val">대한항공 (KE)<br>고마쓰 IN · 간사이 OUT</span></div>
-                <div class="print-overview-item"><span class="label">인원</span><span class="print-overview-val">학생 35명 + 교사 2명<br>(총 37명)</span></div>
-                <div class="print-overview-item"><span class="label">제안사</span><span class="print-overview-val">큐비글로벌<br>(QB Global)</span></div>
+            <div class="print-overview-line">
+                <span><span class="label">행사기간</span>2026. 11. 05(목) ~ 11. 08(일) [3박 4일]</span>
+                <span class="print-overview-sep">|</span>
+                <span><span class="label">이용항공</span>대한항공(KE) · 고마쓰 IN / 간사이 OUT</span>
+            </div>
+            <div class="print-overview-line">
+                <span><span class="label">인원</span>학생 35명 + 교사 2명 (총 37명)</span>
             </div>
         </div>
 
@@ -727,7 +732,7 @@
                 <tr>
                     <th>일차</th>
                     <th>상세 일정</th>
-                    <th>비고/식사</th>
+                    <th>숙소·이동<br>식사·안내</th>
                 </tr>
             </thead>
             
@@ -746,7 +751,12 @@
                         <li><span class="tm-venue-title">히가시 차야 거리</span><span class="tm-venue-text">전통 기모노·다도·오차야 문화 체험 거리</span></li>
                         <li><span class="tm-venue-title">다카오카/도야마 호텔</span><span class="tm-venue-text">익일 자매학교(伏木高校) 방문 전 숙박·단체 브리핑</span></li>
                     </ul>
-                </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 기내</div><div class="tm-meal-simple"><strong>중:</strong> 현지</div><div class="tm-meal-simple"><strong>석:</strong> 현지</div></div></td></tr>
+                </td><td class="tm-side-cell">
+                    <div class="tm-side-block"><div class="tm-side-label">숙소 (1박)</div><div class="tm-side-text"><strong>다카오카/도야마</strong> 시내 호텔<br>남녀 층 분리·단체 체크인</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">이동</div><div class="tm-side-text">KE 인천 07:50→고마쓰 09:40<br>전용버스·가나자와 시내 도보</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 기내식<br><strong>중</strong> 현지식<br><strong>석</strong> 현지식</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">안내</div><div class="tm-side-text">Visit Japan Web QR 지참<br>호쿠리쿠: 우산·경량 패딩</div></div>
+                </td></tr>
                 <tr><td>2일차<br><span class="text-xs font-normal">(11.6)</span></td><td>
                     <div class="tm-time-flow"><span class="tm-time-tag">오전</span> ★ 富山県立伏木高等学校 (자매학교)</div>
                     <ul class="tm-desc-list">
@@ -759,7 +769,12 @@
                     <ul class="tm-desc-list">
                         <li><span class="tm-venue-title">호스트 가정 숙박 (1박)</span><span class="tm-venue-text">학교 배정 가정, 가족 문화·일상 회화. 인솔교사·코디 24시간 연락</span></li>
                     </ul>
-                </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 호텔</div><div class="tm-meal-simple"><strong>중:</strong> 학교</div><div class="tm-meal-simple"><strong>석:</strong> 홈스테이</div></div></td></tr>
+                </td><td class="tm-side-cell">
+                    <div class="tm-side-block"><div class="tm-side-label">숙소 (2박) ★</div><div class="tm-side-text"><strong>호스트 홈스테이</strong><br>후시키고교 배정 가정 1박</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">이동</div><div class="tm-side-text">호텔→伏木高校 (버스)<br>교류 후 호스트 가정 이동</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 호텔<br><strong>중</strong> 학교 급식/도시락<br><strong>석</strong> 홈스테이</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">안내</div><div class="tm-side-text">단정한 복장·선물 소량<br>인솔·코디 <strong>24h</strong> 연락</div></div>
+                </td></tr>
                 <tr><td>3일차<br><span class="text-xs font-normal">(11.7)</span></td><td>
                     <div class="tm-time-flow"><span class="tm-time-tag">오전</span> (선택) 세계유산 마을</div>
                     <ul class="tm-desc-list">
@@ -774,7 +789,12 @@
                         <li><span class="tm-venue-title">산넨자카·니넨자카</span><span class="tm-venue-text">돌길·전통 거리 산책, 사진·기념품</span></li>
                         <li><span class="tm-venue-title">교토 시내 호텔</span><span class="tm-venue-text">4일차 오사카 이동 전 숙박, 남녀 층·방 분리</span></li>
                     </ul>
-                </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 홈스테이</div><div class="tm-meal-simple"><strong>중:</strong> 현지</div><div class="tm-meal-simple"><strong>석:</strong> 현지</div></div></td></tr>
+                </td><td class="tm-side-cell">
+                    <div class="tm-side-block"><div class="tm-side-label">숙소 (3박)</div><div class="tm-side-text"><strong>교토 시내</strong> 호텔<br>4일차 오사카 이동 전</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">이동</div><div class="tm-side-text">도야마→(선택 시라카와고)<br>→교토 관광버스·도보</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 홈스테이<br><strong>중·석</strong> 현지식</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">안내</div><div class="tm-side-text">편한 운동화·카메라<br>사찰: 소란 금지</div></div>
+                </td></tr>
                 <tr><td>4일차<br><span class="text-xs font-normal">(11.8)</span></td><td>
                     <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 오사카 시내</div>
                     <ul class="tm-desc-list">
@@ -786,7 +806,12 @@
                         <li><span class="tm-venue-title">간사이 국제공항</span><span class="tm-venue-text">체크인·출국 수속 (단체 이동)</span></li>
                         <li><span class="tm-venue-title">대한항공 KE · 간사이 18:10 → 인천 20:25</span><span class="tm-venue-text">현지 시각 기준, 확정 시 변동 가능</span></li>
                     </ul>
-                </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 호텔</div><div class="tm-meal-simple"><strong>중:</strong> 자유</div><div class="tm-meal-simple"><strong>석:</strong> 기내</div></div></td></tr>
+                </td><td class="tm-side-cell">
+                    <div class="tm-side-block"><div class="tm-side-label">숙소</div><div class="tm-side-text">당일 <strong>인천 귀국</strong><br>(기내 숙박 없음)</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">이동</div><div class="tm-side-text">교토→오사카→간사이<br>KE 18:10 출발</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 호텔<br><strong>중</strong> 자유식(도톰보리)<br><strong>석</strong> 기내식</div></div>
+                    <div class="tm-side-block"><div class="tm-side-label">안내</div><div class="tm-side-text">여권·탑승권 재확인<br>면세 한도·액체류 규정</div></div>
+                </td></tr>
             </tbody>
         </table>
         
