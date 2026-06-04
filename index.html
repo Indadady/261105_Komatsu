@@ -445,47 +445,68 @@
                         </div>
                     </div>
 
-                    <!-- 날씨 -->
+                    <!-- 날씨 (호쿠리쿠 · 간사이 2지역) -->
                     <div class="bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden">
                         <div class="bg-amber-500 p-4 text-center">
-                            <h3 class="text-white font-bold text-lg"><i class="fa-solid fa-cloud-sun mr-2"></i>교토·일본 날씨 및 옷차림 가이드</h3>
+                            <h3 class="text-white font-bold text-lg"><i class="fa-solid fa-cloud-sun mr-2"></i>방문 지역별 날씨 · 옷차림</h3>
+                            <p class="text-amber-100 text-xs mt-1">동선이 넓어 북부(호쿠리쿠)와 남부(간사이)를 나누어 표시합니다</p>
                         </div>
-                        <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                            
-                            <!-- 실시간 날씨 위젯 (Open-Meteo API) -->
-                            <div class="bg-slate-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-                                <div class="absolute -right-4 -top-4 text-slate-700 opacity-30 text-8xl"><i class="fa-solid fa-cloud"></i></div>
-                                <div class="relative z-10">
-                                    <p class="text-xs text-slate-400 font-bold mb-1 flex justify-between">
-                                        <span>LIVE 실시간 교토 날씨</span>
-                                        <span id="weather-time">업데이트 중...</span>
-                                    </p>
-                                    <div class="flex items-end gap-3 mt-4 mb-6">
-                                        <span id="current-temp" class="text-5xl font-black tracking-tighter">--°C</span>
-                                        <span id="current-desc" class="text-lg font-medium text-slate-300 pb-1">--</span>
-                                        <span id="current-icon" class="text-4xl text-amber-400 ml-auto"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                        <div class="p-6 md:p-8">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                                <!-- 호쿠리쿠 -->
+                                <div class="bg-slate-900 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden border border-sky-500/30">
+                                    <div class="absolute -right-3 -top-3 text-sky-800 opacity-40 text-7xl"><i class="fa-solid fa-snowflake"></i></div>
+                                    <div class="relative z-10">
+                                        <p class="text-xs font-bold flex justify-between items-start gap-2">
+                                            <span><span class="inline-block bg-sky-600 text-white px-2 py-0.5 rounded mr-1">북부</span>호쿠리쿠 · 가나자와 기준</span>
+                                            <span id="hokuriku-weather-time" class="text-slate-400 shrink-0">—</span>
+                                        </p>
+                                        <p class="text-[10px] text-slate-400 mt-0.5">고마쓰·가나자와·도야마 (1~2일차)</p>
+                                        <div class="flex items-end gap-2 mt-3 mb-4">
+                                            <span id="hokuriku-current-temp" class="text-4xl font-black tracking-tighter">--°C</span>
+                                            <span id="hokuriku-current-desc" class="text-sm font-medium text-slate-300 pb-1">--</span>
+                                            <span id="hokuriku-current-icon" class="text-3xl ml-auto"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                                        </div>
+                                        <div id="hokuriku-weekly-forecast" class="flex gap-2 overflow-x-auto no-scrollbar py-2 border-t border-slate-700/50">
+                                            <div class="text-center text-xs text-slate-400 w-full py-2">불러오는 중...</div>
+                                        </div>
                                     </div>
-                                    <!-- 주간 날씨 예보 영역 (가로스크롤) -->
-                                    <div id="weekly-forecast" class="flex gap-2 overflow-x-auto no-scrollbar py-3 border-t border-slate-700/50 mt-2 mb-4">
-                                        <div class="text-center text-xs text-slate-400 w-full py-2">일주일 날씨를 불러오는 중...</div>
+                                </div>
+                                <!-- 간사이 -->
+                                <div class="bg-slate-900 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden border border-indigo-500/30">
+                                    <div class="absolute -right-3 -top-3 text-indigo-800 opacity-40 text-7xl"><i class="fa-solid fa-cloud-sun"></i></div>
+                                    <div class="relative z-10">
+                                        <p class="text-xs font-bold flex justify-between items-start gap-2">
+                                            <span><span class="inline-block bg-indigo-600 text-white px-2 py-0.5 rounded mr-1">남부</span>간사이 · 교토 기준</span>
+                                            <span id="kansai-weather-time" class="text-slate-400 shrink-0">—</span>
+                                        </p>
+                                        <p class="text-[10px] text-slate-400 mt-0.5">교토·오사카·간사이 (3~4일차)</p>
+                                        <div class="flex items-end gap-2 mt-3 mb-4">
+                                            <span id="kansai-current-temp" class="text-4xl font-black tracking-tighter">--°C</span>
+                                            <span id="kansai-current-desc" class="text-sm font-medium text-slate-300 pb-1">--</span>
+                                            <span id="kansai-current-icon" class="text-3xl ml-auto"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                                        </div>
+                                        <div id="kansai-weekly-forecast" class="flex gap-2 overflow-x-auto no-scrollbar py-2 border-t border-slate-700/50">
+                                            <div class="text-center text-xs text-slate-400 w-full py-2">불러오는 중...</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
+                            <div id="weather-compare" class="hidden mb-6 text-center text-sm bg-amber-50 border border-amber-200 rounded-xl py-3 px-4 text-amber-900 font-medium"></div>
                             <!-- 옷차림 조언 -->
-                            <div class="space-y-4 flex flex-col justify-center">
+                            <div class="grid md:grid-cols-2 gap-4">
                                 <div class="flex items-start gap-3 bg-amber-50 p-4 rounded-xl border border-amber-100">
                                     <div class="text-amber-500 text-2xl mt-1"><i class="fa-solid fa-layer-group"></i></div>
                                     <div>
-                                        <p class="font-bold text-slate-800">호쿠리쿠·11월 쌀쌀함 대비</p>
-                                        <p class="text-sm text-slate-600 mt-1">11월 초 호쿠리쿠(가나자와·도야마)는 교토보다 쌀쌀하고 비가 잦습니다. 경량 패딩과 우산을 꼭 챙기세요.</p>
+                                        <p class="font-bold text-slate-800">호쿠리쿠·11월 — 한 겹 더 챙기기</p>
+                                        <p class="text-sm text-slate-600 mt-1">북부는 간사이보다 2~4°C 낮고 비·바람이 잦습니다. 경량 패딩·우산·방수 신발을 권장합니다.</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start gap-3 bg-amber-50 p-4 rounded-xl border border-amber-100">
                                     <div class="text-amber-500 text-2xl mt-1"><i class="fa-solid fa-shoe-prints"></i></div>
                                     <div>
-                                        <p class="font-bold text-slate-800">바람막이와 편안한 신발</p>
-                                        <p class="text-sm text-slate-600 mt-1">홈스테이용 단정한 복장과 편한 운동화, 멀티탭(110V)을 준비해 주세요.</p>
+                                        <p class="font-bold text-slate-800">홈스테이·도보 일정</p>
+                                        <p class="text-sm text-slate-600 mt-1">단정한 복장, 편한 운동화, 멀티탭(110V). 교류·감사 인사는 정중체(です・ます)로 준비해 보세요.</p>
                                     </div>
                                 </div>
                             </div>
@@ -495,21 +516,53 @@
             </div>
         </section>
 
-        <!-- 원클릭 서바이벌 회화 (영어) -->
+        <!-- 원클릭 실전 일본어 (고교 교류용) -->
         <section id="survival" class="py-16 bg-white border-t border-slate-200">
-            <div class="container mx-auto px-4 text-center">
-                <span class="inline-block bg-amber-100 text-amber-700 text-xs px-3 py-1 rounded-full font-bold mb-3">SURVIVAL JAPANESE</span>
-                <h2 class="text-3xl font-bold text-slate-800 mb-2">원클릭 생존 일본어</h2>
-                <p class="text-sm text-slate-500 mb-8">버튼을 눌러 현지인·호스트 가족에게 화면을 보여주세요.</p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto">
-                    <button onclick="showPhrase('안녕하세요', 'こんにちは', '콘니치와', '🙋')" class="bg-amber-50 border border-amber-200 rounded-xl p-3"><div class="text-2xl">🙋</div><div class="text-xs font-bold">인사</div></button>
-                    <button onclick="showPhrase('잘 부탁합니다', 'よろしくお願いします', '요로시쿠', '🏠')" class="bg-amber-50 border border-amber-200 rounded-xl p-3"><div class="text-2xl">🏠</div><div class="text-xs font-bold">홈스테이</div></button>
-                    <button onclick="showPhrase('감사합니다', 'ありがとうございます', '아리가토', '🙏')" class="bg-amber-50 border border-amber-200 rounded-xl p-3"><div class="text-2xl">🙏</div><div class="text-xs font-bold">감사</div></button>
-                    <button onclick="showPhrase('얼마예요?', 'いくらですか', '이쿠라데스카', '💰')" class="bg-amber-50 border border-amber-200 rounded-xl p-3"><div class="text-2xl">💰</div><div class="text-xs font-bold">가격</div></button>
-                    <button onclick="showPhrase('화장실 어디?', 'トイレはどこ', '토이레와 도코', '🚽')" class="bg-amber-50 border border-amber-200 rounded-xl p-3"><div class="text-2xl">🚽</div><div class="text-xs font-bold">화장실</div></button>
-                    <button onclick="showPhrase('이거 주세요', 'これください', '코레 쿠다사이', '🍜')" class="bg-amber-50 border border-amber-200 rounded-xl p-3"><div class="text-2xl">🍜</div><div class="text-xs font-bold">주문</div></button>
-                    <button onclick="showPhrase('길 잃었어요', '道に迷いました', '미치니 마요이', '🆘')" class="bg-red-50 border border-red-200 rounded-xl p-3"><div class="text-2xl">🆘</div><div class="text-xs font-bold text-red-600">길찾기</div></button>
-                    <button onclick="showPhrase('아파요', '痛いです', '이타이데스', '🤕')" class="bg-red-50 border border-red-200 rounded-xl p-3"><div class="text-2xl">🤕</div><div class="text-xs font-bold text-red-600">응급</div></button>
+            <div class="container mx-auto px-4 max-w-5xl">
+                <div class="text-center mb-10">
+                    <span class="inline-block bg-amber-100 text-amber-700 text-xs px-3 py-1 rounded-full font-bold mb-3">EXCHANGE JAPANESE</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mb-2">원클릭 실전 일본어</h2>
+                    <p class="text-sm text-slate-500">고교 국제교류·홈스테이용 <strong class="text-amber-700">정중체(です・ます)</strong> 표현 — 버튼을 눌러 화면을 보여주세요.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-bold text-slate-500 mb-3 flex items-center gap-2"><i class="fa-solid fa-school text-sky-600"></i> 학교 교류 · 자기소개</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button onclick="showPhrase('처음 뵙겠습니다. 한국 청명고에서 왔습니다', '初めまして。韓国・清명高校から来ました', '하지메마시테。칸코쿠 세이메이코코에서 키마시타', '🎓', '교환학생 첫 인사')" class="phrase-btn bg-sky-50 border border-sky-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🎓</div><div class="text-xs font-bold">첫 인사</div><div class="text-[10px] text-slate-500 mt-1">자기소개</div></button>
+                        <button onclick="showPhrase('국제교류가 기대됩니다', '国際交流を楽しみにしています', '코쿠사이코류를 타노시미니시테이마스', '🤝', '학교 행사·환영식')" class="phrase-btn bg-sky-50 border border-sky-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🤝</div><div class="text-xs font-bold">교류 기대</div></button>
+                        <button onclick="showPhrase('잘 부탁드립니다 (친하게 지내요)', 'どうぞよろしくお願いします', '도조 요로시쿠 오네가이시마스', '🙇', '同級生・ホストへ')" class="phrase-btn bg-sky-50 border border-sky-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🙇</div><div class="text-xs font-bold">잘 부탁</div></button>
+                        <button onclick="showPhrase('일본어가 서툴러서 양해 부탁드립니다', '日本語がまだ上手ではありません。ご容赦ください', '니혼고가 마다 조즈데와 아리마센。고요샤쿠다사이', '💬', '수업·대화 전')" class="phrase-btn bg-sky-50 border border-sky-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">💬</div><div class="text-xs font-bold">어학 양해</div></button>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-bold text-slate-500 mb-3 flex items-center gap-2"><i class="fa-solid fa-house-chimney text-red-600"></i> 홈스테이 · 예의</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button onclick="showPhrase('뵙게 되어 영광입니다 (호스트 가족)', 'お会いできて光栄です', '오아이데키테 코에이데스', '🏠', '到着・ご挨拶')" class="phrase-btn bg-red-50 border border-red-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🏠</div><div class="text-xs font-bold">호스트 인사</div></button>
+                        <button onclick="showPhrase('잘 다녀오겠습니다 / 다녀왔습니다', '行ってきます / ただいま戻りました', '잇테키마스 / 타다이마 모도리마시타', '🚪', '外出・帰宅')" class="phrase-btn bg-red-50 border border-red-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🚪</div><div class="text-xs font-bold">외출·귀가</div></button>
+                        <button onclick="showPhrase('정말 감사했습니다 (숙박 후)', 'お世話になりました', '오세와니나리마시타', '🙏', 'ホームステイ終了')" class="phrase-btn bg-red-50 border border-red-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🙏</div><div class="text-xs font-bold">감사 인사</div></button>
+                        <button onclick="showPhrase('사진 찍어도 될까요?', '写真を撮ってもよろしいですか', '샤신오 토잇테모 요로시이데스카', '📷', '許可を取る')" class="phrase-btn bg-red-50 border border-red-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">📷</div><div class="text-xs font-bold">사진 허락</div></button>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-bold text-slate-500 mb-3 flex items-center gap-2"><i class="fa-solid fa-train text-indigo-600"></i> 이동 · 일상</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button onclick="showPhrase('실례합니다 / 죄송합니다', 'すみません', '스미마센', '🙇', '通る・謝る')" class="phrase-btn bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🙇</div><div class="text-xs font-bold">실례·사과</div></button>
+                        <button onclick="showPhrase('역은 어디인가요?', '駅はどちらですか', '에키와 도치라데스카', '🚉', '정중한 길묻기')" class="phrase-btn bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🚉</div><div class="text-xs font-bold">역 위치</div></button>
+                        <button onclick="showPhrase('이것으로 주세요 (주문)', 'これをお願いします', '코레오 오네가이시마스', '🍜', 'レストラン')" class="phrase-btn bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">🍜</div><div class="text-xs font-bold">주문</div></button>
+                        <button onclick="showPhrase('알레르기가 있습니다', 'アレルギーがあります', '아레르기가 아리마스', '⚠️', '食事・給食')" class="phrase-btn bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-left"><div class="text-2xl mb-1">⚠️</div><div class="text-xs font-bold">알레르기</div></button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-bold text-slate-500 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-red-600"></i> 응급 · 도움 요청</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl">
+                        <button onclick="showPhrase('도와주세요', '助けてください', '타스케테쿠다사이', '🆘', '緊急')" class="phrase-btn bg-red-50 border border-red-300 rounded-xl p-3 text-left ring-1 ring-red-200"><div class="text-2xl mb-1">🆘</div><div class="text-xs font-bold text-red-700">도움 요청</div></button>
+                        <button onclick="showPhrase('몸이 좋지 않습니다', '気分が悪いです', '킴분가 와루이데스', '🤒', 'イン솔教師へ')" class="phrase-btn bg-red-50 border border-red-300 rounded-xl p-3 text-left ring-1 ring-red-200"><div class="text-2xl mb-1">🤒</div><div class="text-xs font-bold text-red-700">컨디션</div></button>
+                        <button onclick="showPhrase('길을 잃었습니다', '道に迷いました', '미치니 마요이마시타', '🗺️', 'です・ます形')" class="phrase-btn bg-red-50 border border-red-300 rounded-xl p-3 text-left ring-1 ring-red-200"><div class="text-2xl mb-1">🗺️</div><div class="text-xs font-bold text-red-700">길 찾기</div></button>
+                        <button onclick="showPhrase('인솔 선생님께 연락하고 싶습니다', '担当の先生に連絡したいです', '탄토노 센세이니 렌라쿠시타이데스', '📱', 'ホームステイ')" class="phrase-btn bg-red-50 border border-red-300 rounded-xl p-3 text-left ring-1 ring-red-200"><div class="text-2xl mb-1">📱</div><div class="text-xs font-bold text-red-700">교사 연락</div></button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -518,9 +571,10 @@
         <div id="phrase-modal" class="hidden fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center p-6 print-hidden">
             <div class="text-white text-center w-full max-w-2xl">
                 <div id="phrase-emoji" class="text-7xl mb-6 drop-shadow-lg"></div>
-                <div id="phrase-kr" class="text-2xl mb-2 text-slate-300 font-bold"></div>
-                <div id="phrase-pron" class="text-lg mb-8 text-amber-300 font-medium tracking-wide"></div>
-                <div id="phrase-local" class="text-4xl md:text-5xl font-black text-white mb-10 break-keep leading-tight"></div>
+                <div id="phrase-kr" class="text-xl md:text-2xl mb-2 text-slate-300 font-bold leading-snug"></div>
+                <p id="phrase-note-wrap" class="hidden mb-4"><span id="phrase-note" class="text-sm bg-amber-500/20 text-amber-200 px-4 py-1.5 rounded-full border border-amber-400/40"></span></p>
+                <div id="phrase-pron" class="text-base md:text-lg mb-6 text-amber-300 font-medium tracking-wide leading-relaxed"></div>
+                <div id="phrase-local" class="text-3xl md:text-4xl font-black text-white mb-8 break-keep leading-tight"></div>
                 <p class="text-sm inline-block bg-red-600/20 text-red-400 px-5 py-3 rounded-full border border-red-500/50 font-bold animate-pulse">
                     <i class="fa-solid fa-mobile-screen mr-2"></i>이 화면을 현지인에게 보여주세요
                 </p>
@@ -786,11 +840,19 @@
         // -----------------------------------------
         // 3. 서바이벌 회화 모달 로직 (호주 영어 적용)
         // -----------------------------------------
-        function showPhrase(kr, local, pron, emoji) {
+        function showPhrase(kr, local, pron, emoji, note) {
             document.getElementById('phrase-emoji').innerText = emoji;
             document.getElementById('phrase-kr').innerText = kr;
             document.getElementById('phrase-pron').innerText = pron;
             document.getElementById('phrase-local').innerText = local;
+            const noteWrap = document.getElementById('phrase-note-wrap');
+            const noteEl = document.getElementById('phrase-note');
+            if (note) {
+                noteEl.innerText = note;
+                noteWrap.classList.remove('hidden');
+            } else {
+                noteWrap.classList.add('hidden');
+            }
             document.getElementById('phrase-modal').classList.remove('hidden');
         }
         function closePhrase() {
@@ -846,8 +908,14 @@
         fetchExchange();
 
         // -----------------------------------------
-        // 5. 실시간 날씨 위젯 (Open-Meteo for Kyoto)
+        // 5. 실시간 날씨 (호쿠리쿠 · 간사이 2지역)
         // -----------------------------------------
+        const WEATHER_REGIONS = [
+            { id: 'hokuriku', lat: 36.5613, lon: 136.6562 },
+            { id: 'kansai', lat: 35.0116, lon: 135.7681 }
+        ];
+        const weatherTemps = { hokuriku: null, kansai: null };
+
         function getWeatherIconAndDesc(code) {
             let iconClass = "fa-solid fa-cloud-sun text-amber-400";
             let desc = "맑음/구름조금";
@@ -861,43 +929,65 @@
             return { iconClass, desc };
         }
 
+        function renderWeeklyForecast(regionId, daily) {
+            const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+            let html = '';
+            for (let i = 0; i < 7; i++) {
+                const dateObj = new Date(daily.time[i]);
+                const dInfo = getWeatherIconAndDesc(daily.weathercode[i]);
+                html += `
+                    <div class="flex-shrink-0 w-14 bg-slate-800/60 rounded-lg py-2 flex flex-col items-center border border-slate-700/50">
+                        <span class="text-[9px] text-slate-400 font-bold mb-1">${dateObj.getMonth()+1}/${dateObj.getDate()}</span>
+                        <span class="text-lg mb-0.5"><i class="${dInfo.iconClass}"></i></span>
+                        <span class="text-[9px] font-bold"><span class="text-sky-400">${Math.round(daily.temperature_2m_min[i])}</span><span class="text-slate-600">/</span><span class="text-red-400">${Math.round(daily.temperature_2m_max[i])}</span></span>
+                    </div>`;
+            }
+            document.getElementById(`${regionId}-weekly-forecast`).innerHTML = html;
+        }
+
+        async function fetchRegionWeather(region) {
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${region.lat}&longitude=${region.lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const weather = data.current_weather;
+            const temp = Math.round(weather.temperature);
+            const info = getWeatherIconAndDesc(weather.weathercode);
+            const now = new Date();
+
+            document.getElementById(`${region.id}-current-temp`).innerText = `${temp}°C`;
+            document.getElementById(`${region.id}-current-desc`).innerText = info.desc;
+            document.getElementById(`${region.id}-current-icon`).innerHTML = `<i class="${info.iconClass}"></i>`;
+            document.getElementById(`${region.id}-weather-time`).innerText = `${now.getMonth()+1}.${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+            renderWeeklyForecast(region.id, data.daily);
+            weatherTemps[region.id] = temp;
+        }
+
+        function updateWeatherCompare() {
+            const h = weatherTemps.hokuriku;
+            const k = weatherTemps.kansai;
+            const el = document.getElementById('weather-compare');
+            if (h == null || k == null) return;
+            const diff = h - k;
+            el.classList.remove('hidden');
+            if (diff <= -2) {
+                el.innerHTML = `<i class="fa-solid fa-temperature-low mr-1"></i> 현재 <strong>호쿠리쿠가 간사이보다 약 ${Math.abs(diff)}°C 낮습니다</strong> — 북부 일정에 따뜻한 겉옷을 챙기세요.`;
+            } else if (diff >= 2) {
+                el.innerHTML = `<i class="fa-solid fa-temperature-high mr-1"></i> 현재 호쿠리쿠가 간사이보다 약 ${diff}°C 높습니다.`;
+            } else {
+                el.innerHTML = `<i class="fa-solid fa-scale-balanced mr-1"></i> 두 지역 기온 차이는 크지 않습니다 (약 ${Math.abs(diff)}°C).`;
+            }
+        }
+
         async function fetchJapanWeather() {
             try {
-                // 교토 좌표 (Open-Meteo)
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.0116&longitude=135.7681&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Australia%2FKyoto');
-                const data = await res.json();
-                
-                const weather = data.current_weather;
-                const temp = Math.round(weather.temperature);
-                const info = getWeatherIconAndDesc(weather.weathercode);
-
-                document.getElementById('current-temp').innerText = `${temp}°C`;
-                document.getElementById('current-desc').innerText = info.desc;
-                document.getElementById('current-icon').innerHTML = `<i class="${info.iconClass}"></i>`;
-                
-                const now = new Date();
-                document.getElementById('weather-time').innerText = `${now.getMonth()+1}.${now.getDate()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} 기준`;
-
-                const daily = data.daily;
-                let forecastHTML = '';
-                const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-                
-                for(let i=0; i<7; i++) {
-                    const dateObj = new Date(daily.time[i]);
-                    const dInfo = getWeatherIconAndDesc(daily.weathercode[i]);
-                    forecastHTML += `
-                        <div class="flex-shrink-0 w-16 bg-slate-800/60 rounded-xl py-2 flex flex-col items-center border border-slate-700/50">
-                            <span class="text-[10px] text-slate-400 font-bold mb-1">${dateObj.getMonth()+1}/${dateObj.getDate()}(${daysOfWeek[dateObj.getDay()]})</span>
-                            <span class="text-xl mb-1"><i class="${dInfo.iconClass}"></i></span>
-                            <span class="text-[10px] font-bold tracking-tighter"><span class="text-sky-400">${Math.round(daily.temperature_2m_min[i])}</span><span class="text-slate-600 mx-0.5">/</span><span class="text-red-400">${Math.round(daily.temperature_2m_max[i])}</span></span>
-                        </div>
-                    `;
-                }
-                document.getElementById('weekly-forecast').innerHTML = forecastHTML;
+                await Promise.all(WEATHER_REGIONS.map(fetchRegionWeather));
+                updateWeatherCompare();
             } catch (error) {
                 console.error("날씨 정보 로드 실패", error);
-                document.getElementById('current-temp').innerText = "-°C";
-                document.getElementById('weather-time').innerText = "정보 없음";
+                WEATHER_REGIONS.forEach(r => {
+                    document.getElementById(`${r.id}-current-temp`).innerText = "-°C";
+                    document.getElementById(`${r.id}-weather-time`).innerText = "정보 없음";
+                });
             }
         }
         document.addEventListener('DOMContentLoaded', fetchJapanWeather);
