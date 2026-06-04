@@ -18,7 +18,12 @@
     <meta name="description" content="청명고등학교 일본 자매학교 국제교류 3박4일 — 큐비글로벌 디지털 제안서">
     <meta property="og:title" content="[청명고] 🇯🇵 일본 자매학교 교류 — 큐비글로벌 제안">
     <meta property="og:description" content="청명고등학교 국제교류 입찰 제안용 디지털 가이드북 — 자매학교 방문·홈스테이·호쿠리쿠/간사이 탐방">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&h=630&q=85">
+    <meta property="og:image" content="https://indadady.github.io/261105_Komatsu/assets/og-toyama.jpg">
+    <meta property="og:image:alt" content="도야마현(黒部峡谷) 대표 풍경 — 청명고 일본 자매교류">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://indadady.github.io/261105_Komatsu/assets/og-toyama.jpg">
+    <link rel="image_src" href="https://indadady.github.io/261105_Komatsu/assets/og-toyama.jpg">
+    <!-- 카카오톡·SNS: 도야마현 대표 이미지 (고해상도는 assets/og-toyama.jpg) -->
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,7 +39,7 @@
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; color: #1e293b; }
         
         .hero-bg { 
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('assets/og-toyama.jpg');
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed;
@@ -82,9 +87,15 @@
             .print-doc-no { font-size: 12px; color: #555; }
             .print-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 15px; font-family: 'Nanum Myeongjo', serif; }
             
-            /* 개요 박스 */
-            .print-overview { display: flex; justify-content: space-between; background-color: #f8fafc !important; border: 1px solid #94a3b8 !important; border-radius: 6px; padding: 10px 15px; margin-bottom: 15px; font-size: 13px; }
-            .print-overview .label { font-weight: bold; color: #0284c7; margin-right: 5px; }
+            /* 개요 박스 — 의미 단위 줄바꿈 */
+            .print-overview { background-color: #f8fafc !important; border: 1px solid #94a3b8 !important; border-radius: 6px; padding: 10px 14px; margin-bottom: 15px; font-size: 12px; word-break: keep-all !important; overflow-wrap: normal !important; }
+            .print-overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
+            .print-overview-item { display: flex; align-items: flex-start; gap: 6px; line-height: 1.45; }
+            .print-overview .label { flex-shrink: 0; font-weight: bold; color: #0284c7; min-width: 4.2em; }
+            .print-overview-val { flex: 1; }
+            .tm-meal-wrapper { display: flex; flex-direction: column; gap: 3px; justify-content: center; }
+            .tm-meal-simple { line-height: 1.35; white-space: nowrap; }
+            .tm-venue-desc { font-size: 10px; color: #334155; font-weight: normal; margin-top: 2px; line-height: 1.35; }
 
             /* 표 규격화 */
             #print-table { width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; word-break: keep-all !important; border: 2px solid #1e293b !important; font-size: 11px; }
@@ -143,6 +154,7 @@
                         <a href="#highlights" class="px-3 py-2 text-sm font-bold text-sky-600 hover:text-sky-800 hover:bg-sky-50 rounded-lg"><i class="fa-solid fa-star mr-1"></i>포인트</a>
                         <a href="#flight" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50 rounded-lg">항공</a>
                         <a href="#visit-japan" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50 rounded-lg">입국</a>
+                        <a href="#video" class="px-3 py-2 text-sm font-medium text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg"><i class="fa-brands fa-youtube mr-1"></i>영상</a>
                         <a href="#map-section" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50 rounded-lg">동선</a>
                         <a href="#schedule" class="px-3 py-2 text-sm font-bold text-indigo-600 hover:bg-slate-50 rounded-lg"><i class="fa-solid fa-calendar-check mr-1"></i>일정</a>
                         <a href="#hotel" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50 rounded-lg"><i class="fa-solid fa-bed mr-1"></i>숙소</a>
@@ -202,6 +214,26 @@
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">홈스테이 기간 24시간 비상연락 체계, 인솔교사·현지코디 동행, 단체행사 보험 등 학생 안전을 최우선으로 설계합니다.</p>
                         <span class="inline-block bg-sky-600 text-white text-xs px-2 py-1 rounded font-bold">밀착 케어</span>
                     </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 도야마현 홍보영상 (학교 방문 지역) -->
+        <section id="video" class="py-14 bg-gradient-to-b from-slate-900 to-slate-800 border-t border-slate-700">
+            <div class="container mx-auto px-4 max-w-5xl">
+                <div class="text-center mb-8">
+                    <span class="inline-block bg-red-600 text-white text-xs px-3 py-1 rounded-full font-bold mb-3"><i class="fa-brands fa-youtube mr-1"></i> TOYAMA PR</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white">도야마현 · 자매학교 지역 홍보영상</h2>
+                    <p class="text-slate-300 text-sm mt-2 max-w-2xl mx-auto">방문 예정인 도야마(富山) 지역의 자연·문화를 미리 살펴보세요. 학교 교류 전 학생·학부모 안내용으로 활용할 수 있습니다.</p>
+                </div>
+                <div class="aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-2 border-white/10 bg-black">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/yA5ZQHmUaqw?start=2" title="도야마현 홍보영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-4"><a href="https://www.youtube.com/watch?v=yA5ZQHmUaqw&t=2s" target="_blank" rel="noopener" class="underline hover:text-white">YouTube에서 보기</a></p>
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA7jCzJBWfDMWbdHT2_urWkGO8UA_NQvJW-sTls3QmXqTvJQcSUePvzVM" alt="도야마현 대표 풍경" class="w-32 h-24 object-cover rounded-xl border border-white/20 shadow-lg shrink-0" loading="lazy">
+                    <p class="text-slate-300 text-sm text-center sm:text-left">카카오톡·SNS 공유 시 썸네일에 반영되는 <strong class="text-white">도야마현 대표 이미지</strong>입니다. (黒部峡谷·立山など北陸の象徴)</p>
                 </div>
             </div>
         </section>
@@ -300,11 +332,11 @@
                                 </div>
                             </div>
                             <div class="bg-sky-50 border border-sky-100 p-4 rounded-xl mb-6 text-sm text-sky-900"><strong>큐비 플래너 노트:</strong> 오전 도착으로 첫날부터 알찬 일정. 윤봉길 의사 암장지 참배 후 자매학교 인근 숙박.</div>
-                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-6">
-                                <div class="relative"><div class="timeline-dot bg-sky-600 ring-sky-100"></div><h4 class="font-bold text-lg">07:50 인천 출발 → 09:40 고마쓰 도착</h4><p class="text-sm text-slate-600 mt-1">입국 후 가나자와 이동 (약 50분)</p></div>
-                                <div class="relative"><div class="timeline-dot bg-slate-600 ring-slate-100"></div><h4 class="font-bold text-lg">윤봉길 의사 암장지 참배</h4></div>
-                                <div class="relative"><div class="timeline-dot bg-green-600 ring-green-100"></div><h4 class="font-bold text-lg">겐로쿠엔 · 가나자와성 · 히가시차야</h4></div>
-                                <div class="relative"><div class="timeline-dot bg-slate-800 ring-slate-200"></div><h4 class="font-bold text-lg">다카오카/도야마 호텔 투숙</h4></div>
+                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-8">
+                                <div class="relative"><div class="timeline-dot bg-sky-600 ring-sky-100"></div><h4 class="font-bold text-lg">07:50 인천 출발 → 09:40 고마쓰 도착</h4><p class="text-sm text-slate-600 mt-1">대한항공(KE) · 입국·세관 후 전용버스로 이시카와현 가나자와 이동 (약 50분)</p></div>
+                                <div class="relative"><div class="timeline-dot bg-slate-600 ring-slate-100"></div><h4 class="font-bold text-lg">윤봉길 의사 암장지(윤봉길기념관) 참배</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">1932년 하얼빈 의거 전 암장지. 독립운동사 교육과 국제교류의 의미를 되새기는 역사 체험.</p></div>
+                                <div class="relative"><div class="timeline-dot bg-green-600 ring-green-100"></div><h4 class="font-bold text-lg">겐로쿠엔 · 가나자와성 공원 · 히가시 차야거리</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">일본 3대 정원 중 하나인 겐로쿠엔 산책, 가나자와성 외곽 전망, 전통 기모노·다도 문화가 살아 있는 차야 거리 체험.</p></div>
+                                <div class="relative"><div class="timeline-dot bg-slate-800 ring-slate-200"></div><h4 class="font-bold text-lg">다카오카/도야마 시내 호텔 투숙</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">다음 날 자매학교(伏木高校) 방문을 위해 도야마 인근 숙박. 단체 체크인·안전 브리핑.</p></div>
                             </div>
                         </div>
                         <div id="day2" class="tab-content hidden animate-fade-in-up p-6 md:p-10">
@@ -316,9 +348,9 @@
                                     <p class="text-xs text-slate-500 mt-1">조: 호텔 / 중: 학교 / 석: 홈스테이</p>
                                 </div>
                             </div>
-                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-6">
-                                <div class="relative"><div class="timeline-dot bg-red-600 ring-red-100"></div><h4 class="font-bold text-lg">환영행사 · 수업 참관 · 학생 교류</h4></div>
-                                <div class="relative"><div class="timeline-dot bg-indigo-500 ring-indigo-100"></div><h4 class="font-bold text-lg">호스트 가정 홈스테이 (1박)</h4><p class="text-sm text-slate-600 mt-1">인솔교사·현지코디 비상연락 유지</p></div>
+                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-8">
+                                <div class="relative"><div class="timeline-dot bg-red-600 ring-red-100"></div><h4 class="font-bold text-lg">富山県立伏木高等学校 — 환영·수업·교류</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">자매학교 공식 방문. 환영식, 일본 수업 참관, 동아리·문화 체험, 한·일 학생 1:1 또는 소그룹 교류. (도야마현립, 항구 도시 후시키)</p></div>
+                                <div class="relative"><div class="timeline-dot bg-indigo-500 ring-indigo-100"></div><h4 class="font-bold text-lg">호스트 가정 홈스테이 (1박)</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">학교 배정 일본 가정에서 숙식. 가족 문화 체험·일상 회화. 인솔교사·현지 코디네이터 24시간 비상연락 유지.</p></div>
                             </div>
                         </div>
                         <div id="day3" class="tab-content hidden animate-fade-in-up p-6 md:p-10">
@@ -330,10 +362,11 @@
                                     <p class="text-xs text-slate-500 mt-1">조: 홈스테이 / 중·석: 현지식</p>
                                 </div>
                             </div>
-                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-6">
-                                <div class="relative"><div class="timeline-dot bg-yellow-500 ring-yellow-100"></div><h4 class="font-bold text-lg">금각사(킨카쿠지) 관람</h4></div>
-                                <div class="relative"><div class="timeline-dot bg-blue-500 ring-blue-100"></div><h4 class="font-bold text-lg">도시샤대 · 청수사 · 산넨자카</h4></div>
-                                <div class="relative"><div class="timeline-dot bg-slate-800 ring-slate-200"></div><h4 class="font-bold text-lg">교토 시내 호텔 투숙</h4></div>
+                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-8">
+                                <div class="relative"><div class="timeline-dot bg-amber-500 ring-amber-100"></div><h4 class="font-bold text-lg">(선택) 시라카와고 · 고카야마</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">세계문화유산 가옥 밀집지. 일정·교통에 따라 선택 진행.</p></div>
+                                <div class="relative"><div class="timeline-dot bg-yellow-500 ring-yellow-100"></div><h4 class="font-bold text-lg">금각사(킨카쿠지) · 교토 역사 탐방</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">금박으로 유명한 세계문화유산 사찰. 무로마치 시대 역사·건축 교육.</p></div>
+                                <div class="relative"><div class="timeline-dot bg-blue-500 ring-blue-100"></div><h4 class="font-bold text-lg">도시샤대 · 청수사 · 산넨자카·니넨자카</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">사립 명문 도시샤대 견학, 청수사(쿄미즈데라) 전망, 돌길 거리 산책.</p></div>
+                                <div class="relative"><div class="timeline-dot bg-slate-800 ring-slate-200"></div><h4 class="font-bold text-lg">교토 시내 호텔 투숙</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">4일차 오사카 이동 전 숙박. 남녀 층·방 분리 운영.</p></div>
                             </div>
                         </div>
                         <div id="day4" class="tab-content hidden animate-fade-in-up p-6 md:p-10">
@@ -345,9 +378,9 @@
                                     <p class="text-xs text-slate-500 mt-1">조: 호텔 / 중: 자유식 / 석: 기내식</p>
                                 </div>
                             </div>
-                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-6">
-                                <div class="relative"><div class="timeline-dot bg-purple-600 ring-purple-100"></div><h4 class="font-bold text-lg">오사카성 · 도톰보리 자유시간</h4></div>
-                                <div class="relative"><div class="timeline-dot bg-sky-600 ring-sky-100"></div><h4 class="font-bold text-lg">18:10 간사이 출발 → 20:25 인천 도착</h4></div>
+                            <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-8">
+                                <div class="relative"><div class="timeline-dot bg-purple-600 ring-purple-100"></div><h4 class="font-bold text-lg">오사카성 공원 · 도톰보리</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">도요토미 히데요시 관련 성곽·박물관 견학, 글리코 간판·먹자골목 자유시간.</p></div>
+                                <div class="relative"><div class="timeline-dot bg-sky-600 ring-sky-100"></div><h4 class="font-bold text-lg">간사이공항 출발 · 인천 귀국</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">대한항공 KE · 18:10 간사이 출발 → 20:25 인천 도착 (현지 시각 기준, 확정 시 변동)</p></div>
                             </div>
                         </div>
                     </div>
@@ -628,9 +661,12 @@
         <h1 class="print-title">일본 자매교류 3박4일 청명고등학교 방문 일정(안)</h1>
         
         <div class="print-overview">
-            <div><span class="label">행사기간</span> 2026. 11. 05(목) ~ 11. 08(일) [3박4일]</div>
-            <div><span class="label">제안사</span> 큐비글로벌 (QB Global)</div>
-            <div><span class="label">인원</span> 학생 35 + 교사 2 · 고마쓰IN/간사이OUT</div>
+            <div class="print-overview-grid">
+                <div class="print-overview-item"><span class="label">행사기간</span><span class="print-overview-val">2026. 11. 05(목) ~ 11. 08(일)<br>[3박 4일]</span></div>
+                <div class="print-overview-item"><span class="label">이용항공</span><span class="print-overview-val">대한항공 (KE)<br>고마쓰 IN · 간사이 OUT</span></div>
+                <div class="print-overview-item"><span class="label">인원</span><span class="print-overview-val">학생 35명 + 교사 2명<br>(총 37명)</span></div>
+                <div class="print-overview-item"><span class="label">제안사</span><span class="print-overview-val">큐비글로벌<br>(QB Global)</span></div>
+            </div>
         </div>
 
         <table id="print-table">
@@ -649,20 +685,36 @@
             
             <tbody>
                 <tr><td>1일차<br><span class="text-xs font-normal">(11.5)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 인천→고마쓰→가나자와</div>
-                    <ul class="tm-desc-list"><li>윤봉길 암장지·겐로쿠엔·가나자와성</li><li>다카오카/도야마 호텔</li></ul>
+                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 인천 07:50 → 고마쓰 09:40</div>
+                    <ul class="tm-desc-list">
+                        <li><span class="tm-highlight">윤봉길 의사 암장지</span> 참배 — 독립운동사·국제교류 의미 되새김</li>
+                        <li><span class="tm-highlight">겐로쿠엔·가나자와성·히가시차야</span> — 일본 3대 정원·전통 거리</li>
+                        <li>다카오카/도야마 호텔 — 익일 자매학교 방문 대비</li>
+                    </ul>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 기내</div><div class="tm-meal-simple"><strong>중:</strong> 현지</div><div class="tm-meal-simple"><strong>석:</strong> 현지</div></div></td></tr>
                 <tr><td>2일차<br><span class="text-xs font-normal">(11.6)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">전일</span> ★ 후시키고교 교류</div>
-                    <ul class="tm-desc-list"><li>환영행사·수업참관·학생교류</li><li>호스트 홈스테이 1박</li></ul>
+                    <div class="tm-time-flow"><span class="tm-time-tag">전일</span> ★ 富山県立伏木高等学校</div>
+                    <ul class="tm-desc-list">
+                        <li>환영식·수업 참관·동아리·한일 학생 교류</li>
+                        <li>호스트 가정 <span class="tm-highlight">홈스테이 1박</span> — 가족 문화·일상 회화</li>
+                    </ul>
+                    <p class="tm-venue-desc">도야마현립·항구도시 후시키. 본 행사 최우선 프로그램.</p>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 호텔</div><div class="tm-meal-simple"><strong>중:</strong> 학교</div><div class="tm-meal-simple"><strong>석:</strong> 홈스테이</div></div></td></tr>
                 <tr><td>3일차<br><span class="text-xs font-normal">(11.7)</span></td><td>
                     <div class="tm-time-flow"><span class="tm-time-tag">전일</span> 교토 문화탐방</div>
-                    <ul class="tm-desc-list"><li>(선택) 시라카와고</li><li>금각사·도시샤대·청수사</li><li>교토 호텔</li></ul>
+                    <ul class="tm-desc-list">
+                        <li>(선택) 시라카와고·고카야마 세계유산 가옥</li>
+                        <li><span class="tm-highlight">금각사</span> — 세계문화유산·무로마치 역사</li>
+                        <li><span class="tm-highlight">도시샤대·청수사·산넨자카</span> — 명문대·사찰·돌길</li>
+                        <li>교토 시내 호텔</li>
+                    </ul>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 홈스테이</div><div class="tm-meal-simple"><strong>중:</strong> 현지</div><div class="tm-meal-simple"><strong>석:</strong> 현지</div></div></td></tr>
                 <tr><td>4일차<br><span class="text-xs font-normal">(11.8)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">전일</span> 오사카→귀국</div>
-                    <ul class="tm-desc-list"><li>오사카성·도톰보리</li><li>간사이 18:10 출발</li></ul>
+                    <div class="tm-time-flow"><span class="tm-time-tag">전일</span> 오사카 → 간사이 → 인천</div>
+                    <ul class="tm-desc-list">
+                        <li><span class="tm-highlight">오사카성·도톰보리</span> — 성곽·먹자골목</li>
+                        <li>18:10 간사이 출발 · 20:25 인천 (KE)</li>
+                    </ul>
                 </td><td><div class="tm-meal-wrapper"><div class="tm-meal-simple"><strong>조:</strong> 호텔</div><div class="tm-meal-simple"><strong>중:</strong> 자유</div><div class="tm-meal-simple"><strong>석:</strong> 기내</div></div></td></tr>
             </tbody>
         </table>
