@@ -44,6 +44,9 @@
             background-attachment: fixed;
         }
         .hotel-photo { width: 100%; height: 13.5rem; object-fit: cover; display: block; }
+        .hotel-photo-pair { display: grid; grid-template-columns: 1.2fr 1fr; }
+        .hotel-photo-pair img { width: 100%; height: 13.5rem; object-fit: cover; display: block; }
+        @media (max-width: 640px) { .hotel-photo-pair { grid-template-columns: 1fr; } .hotel-photo-pair img { height: 11rem; } }
         @media (max-width: 768px){ .hero-bg { background-attachment: scroll; } }
         
         #map { height: 500px; width: 100%; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); z-index: 10; }
@@ -92,81 +95,60 @@
             background-color: var(--tw-bg-color);
         }
 
-        /* 🖨️ 인쇄 최적화 (큐비글로벌 표준 결재 서류 양식) */
+        @media screen { #print-area { display: none !important; } }
+        /* 🖨️ 투어메이커 표준 일정표 인쇄 (A4 2페이지) */
         @media print {
-            @page { size: A4 portrait; margin: 12mm 10mm; }
-            * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; print-color-adjust: exact !important; }
-            body { background: white !important; color: black !important; }
-            
-            /* 웹 전용 UI 모두 숨김 */
-            header, footer, section:not(#print-area), .no-print, #phrase-modal, #tm-inquiry-modal, #event-day-bar { display: none !important; }
-            .print-pack { display: block !important; page-break-before: always; }
-            .print-pack h2 { font-size: 18px; font-weight: bold; margin: 0 0 12px; }
-            .print-pack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-            .print-pack-box { border: 1px solid #94a3b8; border-radius: 6px; padding: 10px; font-size: 11px; }
-            .print-pack-box strong { display: block; margin-bottom: 4px; color: #0284c7; }
-            .print-qr { text-align: center; margin-top: 18px; }
-            .print-qr img { width: 28mm; height: 28mm; }
-            
-            /* 프린트 영역 활성화 및 여백 초기화 */
-            main, body { padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important; background: white !important; }
-            #print-area { display: block !important; width: 100%; }
-
-            /* 헤더 디자인 */
-            .print-header-top { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #0284c7; padding-bottom: 10px; margin-bottom: 15px; }
-            .print-header-top img { height: 35px; }
-            .print-doc-no { font-size: 12px; color: #555; }
-            .print-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 15px; font-family: 'Nanum Myeongjo', serif; }
-            
-            /* 개요 박스 — 2줄 압축 (제안사는 하단 푸터) */
-            .print-overview { background-color: #f8fafc !important; border: 1px solid #94a3b8 !important; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 11.5px; word-break: keep-all !important; }
-            .print-overview-line { line-height: 1.5; margin-bottom: 3px; }
-            .print-overview-line:last-child { margin-bottom: 0; }
-            .print-overview .label { font-weight: bold; color: #0284c7; margin-right: 4px; }
-            .print-overview-sep { color: #94a3b8; margin: 0 10px; }
-
-            /* 표 규격화 */
-            #print-table { width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; word-break: keep-all !important; border: 2px solid #1e293b !important; font-size: 10.5px; }
-            #print-table th, #print-table td { border: 1px solid #1e293b !important; padding: 6px 8px !important; }
-            #print-table th { background-color: #f8fafc !important; font-weight: bold; text-align: center; }
-            
-            /* 비율: 일차(10%), 상세일정(68%), 숙소·이동·식사·비고(22%) */
-            #print-table colgroup col:nth-child(1) { width: 10% !important; }
-            #print-table colgroup col:nth-child(2) { width: 68% !important; }
-            #print-table colgroup col:nth-child(3) { width: 22% !important; }
-            
-            #print-table td:nth-child(1) { text-align: center; vertical-align: top; background-color: #f8fafc !important; font-weight: bold; }
-            #print-table td:nth-child(2) { vertical-align: top; line-height: 1.4; }
-            #print-table td.tm-side-cell { text-align: left !important; vertical-align: top !important; font-size: 10px; background-color: #fafbfc !important; }
-            .tm-side-block { margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px dashed #cbd5e1; }
-            .tm-side-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-            .tm-side-label { font-weight: bold; color: #0284c7; font-size: 10px; margin-bottom: 2px; }
-            .tm-side-text { line-height: 1.4; color: #1e293b; }
-            .tm-side-text strong { color: #000; }
-
-            #print-table tbody tr { page-break-inside: auto; }
-            #print-table tbody tr td:first-child { page-break-inside: avoid; }
-            #print-table tbody tr:first-child td { border-top: 2px solid #1e293b !important; }
-            
-            /* 내부 콘텐츠 스타일링 */
-            .tm-time-flow { font-size: 11px !important; margin-bottom: 4px !important; font-weight: bold; }
-            .tm-time-tag { color: #0284c7; margin-right: 5px; }
-            .tm-highlight { font-weight: 700; color: #000; }
-            
-            .tm-desc-list { list-style: none; margin: 4px 0 !important; padding-left: 5px; }
-            .tm-desc-list li { position: relative; padding-left: 12px; margin-bottom: 7px !important; line-height: 1.35; color: #000; }
-            .tm-desc-list li:last-child { margin-bottom: 2px !important; }
-            .tm-desc-list li::before { content: '■'; font-size: 8px; position: absolute; left: 0; top: 4px; color: #0284c7; }
-            .tm-venue-title { display: block; font-weight: 700; color: #000; margin-bottom: 2px; }
-            .tm-venue-text { display: block; font-size: 10px; color: #334155; font-weight: normal; line-height: 1.4; }
-            .tm-venue-text.tm-star { color: #b91c1c; font-weight: 600; }
-            
-            .tm-hotel-divider { border: 0; border-top: 1px dashed #94a3b8; margin: 6px 0 4px 0; }
-            .tm-hotel-info { font-size: 11px !important; color: #000; font-weight: bold;}
-            
-            /* 하단 직인 영역 */
-            .print-footer-area { margin-top: 15px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 11px; border-top: 1px solid #ccc; padding-top: 10px; }
-            .print-footer-area .manager { font-weight: bold; border-left: 3px solid #0284c7; padding-left: 8px; }
+            @page { size: A4 portrait; margin: 10mm 10mm; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            html, body { background: #fff !important; color: #1e293b !important; }
+            header, footer, section, .print\:hidden, .no-print, #event-day-bar, #phrase-modal, #tm-inquiry-modal { display: none !important; }
+            body { padding: 0 !important; margin: 0 !important; }
+            #print-area { display: block !important; width: 100%; box-sizing: border-box; }
+            .print-page { display: flex; flex-direction: column; width: 100%; box-sizing: border-box; }
+            .print-page-break { page-break-after: always; break-after: page; }
+            .print-page-2 { page-break-before: always; break-before: page; }
+            .std-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #004098; padding-bottom: 6px; margin-bottom: 8px; }
+            .std-header img { height: 32px; object-fit: contain; }
+            .std-doc-info { text-align: right; font-size: 10.5px; color: #475569; font-weight: 600; }
+            .std-title { text-align: center; margin-bottom: 5px; }
+            .std-title h1 { font-size: 18px; font-weight: 700; color: #0f172a; margin: 0; font-family: 'Nanum Myeongjo', serif; line-height: 1.3; }
+            .print-sub { text-align: center; font-size: 10.5px; margin: 0 0 6px; color: #334155; }
+            .std-overview { background: #f8fafc !important; border: 1px solid #94a3b8 !important; border-radius: 6px; padding: 8px 12px; margin-bottom: 8px; font-size: 11px; }
+            .std-overview .label { font-weight: 700; color: #004098; margin-right: 4px; }
+            .std-table { width: 100%; border-collapse: collapse; font-size: 10.5px; table-layout: fixed; border: 2px solid #1e293b !important; margin-bottom: 6px; }
+            .std-table th { border: 1px solid #1e293b !important; background: #f8fafc !important; font-weight: 700; text-align: center; padding: 6px 5px !important; font-size: 11px; }
+            .std-table td { border: 1px solid #1e293b !important; padding: 8px 8px !important; vertical-align: top; word-break: keep-all; line-height: 1.4; }
+            .std-table tbody tr { page-break-inside: avoid; break-inside: avoid; }
+            .col-date { width: 12%; text-align: center; font-weight: 700; background: #f8fafc !important; vertical-align: middle; }
+            .col-desc { width: 68%; }
+            .col-meal { width: 20%; }
+            .time-tag { color: #004098; font-weight: 700; margin-right: 3px; }
+            .desc-list { list-style: none; margin: 4px 0 0; padding-left: 3px; }
+            .desc-list li { position: relative; padding-left: 12px; margin-bottom: 3px; }
+            .desc-list li::before { content: '■'; font-size: 7px; position: absolute; left: 0; top: 4px; color: #004098; }
+            .hotel-divider { border: 0; border-top: 1px dashed #94a3b8; margin: 8px 0 6px; }
+            .hotel-info { font-size: 11px; font-weight: 700; color: #0f172a; }
+            .hotel-info i { color: #004098; margin-right: 4px; }
+            .meal-wrapper { display: flex; flex-direction: column; gap: 10px; justify-content: center; height: 100%; text-align: left; }
+            .meal-simple { display: flex; align-items: flex-start; font-size: 11px; line-height: 1.35; }
+            .meal-simple strong { color: #004098; margin-right: 4px; width: 18px; flex-shrink: 0; }
+            .print-remarks { font-size: 10px; color: #64748b; text-align: right; margin: 4px 0 6px; }
+            .footer-box { margin-top: auto; padding-top: 10px; display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #e2e8f0; font-size: 10.5px; }
+            .manager-info { border-left: 3px solid #004098; padding-left: 10px; font-weight: 700; }
+            .print-section-title { font-size: 14px; font-weight: 800; color: #004098; margin: 0 0 10px; border-left: 4px solid #004098; padding-left: 8px; }
+            .print-check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin: 2px 0 14px; }
+            .print-check-item { display: flex; align-items: center; gap: 8px; font-size: 12px; border: 1px solid #94a3b8; border-radius: 6px; padding: 9px 12px; background: #fff !important; word-break: keep-all; }
+            .print-check-box { width: 14px; height: 14px; border: 1.5px solid #004098; border-radius: 3px; flex-shrink: 0; }
+            .print-seat-box { border: 1px solid #1e293b; border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; background: #f8fafc !important; }
+            .print-seat-box h3 { font-size: 12px; font-weight: 800; color: #004098; margin: 0 0 6px; }
+            .print-seat-box ul { list-style: none; margin: 0; padding: 0; }
+            .print-seat-box li { position: relative; padding-left: 11px; font-size: 11px; line-height: 1.45; margin-bottom: 3px; }
+            .print-seat-box li::before { content: '■'; font-size: 7px; position: absolute; left: 0; top: 4px; color: #004098; }
+            .print-qr-panel { display: flex; gap: 14px; align-items: center; border: 2px solid #004098; border-radius: 10px; padding: 14px 16px; background: #f8fafc !important; margin-top: auto; }
+            .print-qr-panel img { width: 28mm; height: 28mm; flex-shrink: 0; border: 1px solid #e2e8f0; background: #fff; }
+            .print-qr-panel h3 { font-size: 15px; font-weight: bold; color: #004098; margin: 0 0 4px; }
+            .print-qr-panel p { font-size: 12px; line-height: 1.45; color: #334155; margin: 0 0 4px; }
+            .print-qr-url { font-size: 11.5px; font-weight: bold; color: #0f172a; word-break: break-all; }
         }
     </style>
 </head>
@@ -433,7 +415,7 @@
                             <div class="relative border-l-2 border-slate-200 ml-4 pl-8 space-y-8">
                                 <div class="relative"><div class="timeline-dot bg-amber-500 ring-amber-100"></div><h4 class="font-bold text-lg">호텔 조식 · 체크아웃 → 자매학교 이동</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">토나미에서 후시키고등학교로 이동.</p></div>
                                 <div class="relative"><div class="timeline-dot bg-red-600 ring-red-100"></div><h4 class="font-bold text-lg">富山県立伏木高等学校 — 환영·수업·교류</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">환영식, 수업 참관, 호스트 학생 만남·교류 활동. 중식은 자매학교에서 제공.</p></div>
-                                <div class="relative"><div class="timeline-dot bg-indigo-500 ring-indigo-100"></div><h4 class="font-bold text-lg">학생 — 호스트 가정 홈스테이 (1박)</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">학교 배정 가정에서 숙박·석식. 인솔교사·통가이드 비상연락 유지.</p></div>
+                                <div class="relative"><div class="timeline-dot bg-indigo-500 ring-indigo-100"></div><h4 class="font-bold text-lg">학생 — 호스트 가정 홈스테이 (1박)</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">학교 배정 가정에서 숙박·석식. 인솔교사·스루가이드 비상연락 유지.</p></div>
                                 <div class="relative"><div class="timeline-dot bg-slate-600 ring-slate-100"></div><h4 class="font-bold text-lg">인솔교사 — 다이와 로이넷 호텔 도야마 에키마에</h4><p class="text-sm text-slate-500 mt-1 leading-relaxed">학생 홈스테이 당일 교사 숙소. Tel 076-471-6422 · 익일 집합 거점.</p></div>
                             </div>
                         </div>
@@ -486,15 +468,18 @@
                     <span class="text-slate-600 font-black tracking-widest text-xs uppercase">ACCOMMODATION</span>
                     <h2 class="text-3xl font-bold text-slate-800 mt-2">숙박 안내 (3박)</h2>
                     <p class="text-sm text-slate-500 mt-2">학생 호텔 2박 + 홈스테이 1박 · 인솔교사는 11/6 도야마역전 호텔</p>
-                    <p class="text-xs text-slate-400 mt-1">객실 배정은 호텔 사정에 따릅니다. 사진 중 일부는 숙소 소재지·인근 풍경입니다.</p>
+                    <p class="text-xs text-slate-400 mt-1">사진은 각 호텔 공식 전경·객실입니다. 객실 배정은 호텔 사정에 따릅니다.</p>
                 </div>
 
                 <article class="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                    <img src="assets/images/hotel-mercure.jpg" alt="토나미시 일대 — 머큐어 도야마 토나미 소재 도시" class="hotel-photo">
+                    <div class="hotel-photo-pair">
+                        <img src="assets/images/hotel-mercure.jpg" alt="머큐어 도야마 토나미 리조트&amp;스파 전경">
+                        <img src="assets/images/hotel-mercure-room.jpg" alt="머큐어 도야마 토나미 객실">
+                    </div>
                     <div class="p-6 md:p-7">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-1 rounded">1박 · 11/5</span>
-                            <span class="text-xs font-bold text-slate-500">단체 숙박</span>
+                            <span class="text-xs font-bold text-slate-500">단체 숙박 · 전경/객실</span>
                         </div>
                         <h3 class="font-bold text-xl text-slate-800">머큐어 도야마 토나미 리조트&amp;스파</h3>
                         <p class="text-sm text-slate-500 mt-1">メルキュール富山砺波リゾート＆スパ · Accor Mercure</p>
@@ -519,9 +504,12 @@
                         </div>
                         <h3 class="font-bold text-xl text-slate-800">호스트 홈스테이 (학생)</h3>
                         <p class="text-sm text-slate-500 mt-1">富山県立伏木高等学校 배정 가정 · 1박</p>
-                        <p class="text-sm text-slate-600 mt-3 leading-relaxed">자매학교 호스트 가정에서 석식·숙박·조식을 함께합니다. 인솔교사·현지 코디네이터가 24시간 비상연락을 유지합니다. 가정 배정은 후시키고교 안내에 따릅니다.</p>
+                        <p class="text-sm text-slate-600 mt-3 leading-relaxed">자매학교 호스트 가정에서 석식·숙박·조식을 함께합니다. 인솔교사·스루가이드가 비상연락을 유지합니다. 가정 배정은 후시키고교 안내에 따릅니다.</p>
                     </div>
-                    <img src="assets/images/hotel-daiwa.jpg" alt="JR 도야마역 — 교사 호텔 도보권" class="hotel-photo">
+                    <div class="hotel-photo-pair">
+                        <img src="assets/images/hotel-daiwa.jpg" alt="다이와 로이넷 호텔 도야마 에키마에 전경">
+                        <img src="assets/images/hotel-daiwa-room.jpg" alt="다이와 로이넷 도야마 에키마에 객실">
+                    </div>
                     <div class="p-6 md:p-7 pt-5">
                         <h4 class="font-bold text-lg text-slate-800">인솔교사 · 다이와 로이넷 호텔 도야마 에키마에</h4>
                         <p class="text-sm text-slate-500 mt-1">ダイワロイネットホテル富山駅前 · 학생은 홈스테이</p>
@@ -536,11 +524,14 @@
                 </article>
 
                 <article class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                    <img src="assets/images/hotel-keio.jpg" alt="교토 카라스마 거리 — 게이오 프렐리아 호텔 입지" class="hotel-photo">
+                    <div class="hotel-photo-pair">
+                        <img src="assets/images/hotel-keio.jpg" alt="게이오 프렐리아 호텔 교토 카라스마고조 전경">
+                        <img src="assets/images/hotel-keio-room.jpg" alt="게이오 프렐리아 교토 스탠다드 트윈 객실">
+                    </div>
                     <div class="p-6 md:p-7">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">3박 · 11/7</span>
-                            <span class="text-xs font-bold text-slate-500">귀국 전날</span>
+                            <span class="text-xs font-bold text-slate-500">귀국 전날 · 전경/객실</span>
                         </div>
                         <h3 class="font-bold text-xl text-slate-800">게이오 프렐리아 호텔 교토 카라스마고조</h3>
                         <p class="text-sm text-slate-500 mt-1">京王プレリアホテル京都烏丸五条</p>
@@ -757,7 +748,7 @@
                         <p class="text-sm text-slate-600 mt-2">최민태 팀장 : <a href="tel:01073695230" class="text-sky-600 font-bold">010-7369-5230</a></p>
                     </div>
                     <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-200 text-center">
-                        <h4 class="font-bold text-lg text-slate-800 mb-3">통가이드 · 신은상</h4>
+                        <h4 class="font-bold text-lg text-slate-800 mb-3">스루가이드 · 신은상</h4>
                         <p class="text-sm text-slate-600">한국 H.P : <a href="tel:01092423214" class="text-indigo-600 font-bold">010-9242-3214</a></p>
                         <p class="text-sm text-slate-600 mt-2">일본 H.P : <a href="tel:+818046148247" class="text-indigo-600 font-bold">080-4614-8247</a></p>
                         <p class="text-xs text-slate-500 mt-2">전 일정 동행 · 드라이버·가이드 팁 포함</p>
@@ -771,7 +762,7 @@
                 <div class="max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-6">
                     <h3 class="font-bold text-slate-800 mb-2"><i class="fa-solid fa-shield-halved text-sky-600 mr-2"></i>안전 운영 원칙</h3>
                     <ul class="text-sm text-slate-600 space-y-2 list-disc pl-5">
-                        <li>홈스테이 기간 24시간 비상연락 체계 및 인솔교사·통가이드 동행</li>
+                        <li>홈스테이 기간 24시간 비상연락 체계 및 인솔교사·스루가이드 동행</li>
                         <li>단체 여행자보험 가입 (증권·보상 범위는 출발전 서류에서 안내)</li>
                         <li>Visit Japan Web 사전 등록으로 신속 입국 수속</li>
                         <li>본 일정은 쇼핑 일정이 없습니다</li>
@@ -881,123 +872,150 @@
     <!-- ========================================================================= -->
     <!-- 🖨️ Print-Only Area (결재 서류용 양식) -->
     <!-- ========================================================================= -->
-    <div id="print-area" class="hidden print:block w-full bg-white text-black py-4">
-        <div class="print-header-top">
-            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjPMO83G1xHJIu1jKvn1GjQn_C3z42tM-LYvYPKcGIaYkarv47vw5TlYsJFjZxRLVm4e0yQutvIHXQ_VBUHdlu2p25QP7z1NAK2XsEUNUpxycDMpLzi7TJ390gXDpD5orf1OBAXwbwnPrasas06glRIv9rpqwN1YEQvy2fPbKRU4Ogpbo8SyH7NEnt-1FY=w320-h101" alt="QB Global 로고">
-            <div class="print-doc-no">문서번호: QB-261105-CMJP</div>
+    <div id="print-area">
+      <div class="print-page print-page-break">
+        <div class="std-header">
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjPMO83G1xHJIu1jKvn1GjQn_C3z42tM-LYvYPKcGIaYkarv47vw5TlYsJFjZxRLVm4e0yQutvIHXQ_VBUHdlu2p25QP7z1NAK2XsEUNUpxycDMpLzi7TJ390gXDpD5orf1OBAXwbwnPrasas06glRIv9rpqwN1YEQvy2fPbKRU4Ogpbo8SyH7NEnt-1FY=w320-h101" alt="QB Global">
+          <div class="std-doc-info">안내 · 1/2</div>
         </div>
-        
-        <h1 class="print-title">일본 자매교류 3박4일 청명고등학교 방문 일정</h1>
-        <p class="text-center text-xs text-slate-500 -mt-3 mb-3">진행: 큐비글로벌(QB Global)</p>
-        
-        <div class="print-overview">
-            <div class="print-overview-line">
-                <span><span class="label">행사기간</span>2026. 11. 05(목) ~ 11. 08(일) [3박 4일]</span>
-                <span class="print-overview-sep">|</span>
-                <span><span class="label">이용항공</span>대한항공(KE) · KE2189 / KE726 · 고마쓰 IN / 간사이 OUT</span>
-            </div>
-            <div class="print-overview-line">
-                <span><span class="label">통가이드</span>신은상 · 한국 010-9242-3214 · 일본 080-4614-8247</span>
-            </div>
+        <div class="std-title"><h1>청명고등학교 일본 자매교류 3박4일 방문 일정</h1></div>
+        <p class="print-sub">진행: 큐비글로벌(QB Global) × 투어메이커 협업</p>
+        <div class="std-overview">
+          <div><span class="label">행사기간</span>2026.11.05(목)~11.08(일) [3박 4일]<span style="margin:0 8px;color:#94a3b8;">|</span><span class="label">항공</span>대한항공 KE2189 / KE726</div>
+          <div style="margin-top:4px;"><span class="label">스루가이드</span>신은상 · 한국 010-9242-3214 · 일본 080-4614-8247</div>
         </div>
-
-        <table id="print-table">
-            <colgroup>
-                <col>
-                <col>
-                <col>
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>일차</th>
-                    <th>상세 일정</th>
-                    <th>숙소·이동<br>식사·안내</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                <tr><td>1일차<br><span class="text-xs font-normal">(11.5)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 대한항공 KE2189 · 인천 07:50 → 고마쓰 09:40</div>
-                    <ul class="tm-desc-list">
-                        <li><span class="tm-venue-title">고마쓰 공항 입국</span><span class="tm-venue-text">Visit Japan Web QR·입국심사 후 전용버스 탑승</span></li>
-                        <li><span class="tm-venue-title">고마쓰 → 가나자와 이동</span><span class="tm-venue-text">차량 약 40분</span></li>
-                        <li><span class="tm-venue-title">윤봉길 의사 암장지</span><span class="tm-venue-text">독립운동사·국제교류 의미 되새김</span></li>
-                        <li><span class="tm-venue-title">겐로쿠엔 · 가나자와성 · 히가시 차야</span><span class="tm-venue-text">가나자와 문화체험</span></li>
-                        <li><span class="tm-venue-title">도야마(토나미) 이동 · 호텔 투숙</span><span class="tm-venue-text">차량 약 50분 · 머큐어 도야마 토나미</span></li>
-                    </ul>
-                </td><td class="tm-side-cell">
-                    <div class="tm-side-block"><div class="tm-side-label">숙소 (1박)</div><div class="tm-side-text"><strong>머큐어 도야마 토나미</strong><br>리조트&amp;스파 · 0763-37-2000</div></div>
-                    <div class="tm-side-block"><div class="tm-side-label">이동</div><div class="tm-side-text">KE2189 · 전용버스</div></div>
-                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 기내식<br><strong>중</strong> 스시<br><strong>석</strong> 호텔 세트</div></div>
-                </td></tr>
-                <tr><td>2일차<br><span class="text-xs font-normal">(11.6)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">종일</span> ★ 富山県立伏木高等学校 (자매학교)</div>
-                    <ul class="tm-desc-list">
-                        <li><span class="tm-venue-title">호텔 조식·체크아웃 → 학교 이동</span><span class="tm-venue-text tm-star">본 행사 최우선 — 후시키고교 공식 방문</span></li>
-                        <li><span class="tm-venue-title">환영식 · 수업 참관 · 학생 교류</span><span class="tm-venue-text">호스트 학생 만남·교류 활동</span></li>
-                        <li><span class="tm-venue-title">중식 학교 제공</span><span class="tm-venue-text">학생·교사</span></li>
-                        <li><span class="tm-venue-title">학생 홈스테이 / 교사 호텔</span><span class="tm-venue-text">교사: 다이와로이넷 도야마역전</span></li>
-                    </ul>
-                </td><td class="tm-side-cell">
-                    <div class="tm-side-block"><div class="tm-side-label">숙소 (2박) ★</div><div class="tm-side-text"><strong>학생</strong> 호스트 홈스테이<br><strong>교사</strong> 다이와로이넷 도야마역전<br>076-471-6422</div></div>
-                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 호텔<br><strong>중</strong> 학교 제공<br><strong>석</strong> 홈스테이</div></div>
-                </td></tr>
-                <tr><td>3일차<br><span class="text-xs font-normal">(11.7)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 학교 환송 · 교토 이동</div>
-                    <ul class="tm-desc-list">
-                        <li><span class="tm-venue-title">홈스테이 조식(학생) · 학교 집합·환송</span><span class="tm-venue-text">후시키고교에서 출발</span></li>
-                        <li><span class="tm-venue-title">교토 이동</span><span class="tm-venue-text">약 4시간 40분 · 휴게 1회</span></li>
-                        <li><span class="tm-venue-title">청수사 · 니넨자카 · 산넨자카</span><span class="tm-venue-text">교토 문화탐방</span></li>
-                        <li><span class="tm-venue-title">금각사(킨카쿠지)</span><span class="tm-venue-text">세계문화유산</span></li>
-                        <li><span class="tm-venue-title">게이오 프렐리아 호텔 교토</span><span class="tm-venue-text">075-352-5111</span></li>
-                    </ul>
-                </td><td class="tm-side-cell">
-                    <div class="tm-side-block"><div class="tm-side-label">숙소 (3박)</div><div class="tm-side-text"><strong>게이오 프렐리아 교토</strong></div></div>
-                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 학생 홈스테이 / 교사 호텔<br><strong>중</strong> 현지<br><strong>석</strong> 야키니쿠</div></div>
-                </td></tr>
-                <tr><td>4일차<br><span class="text-xs font-normal">(11.8)</span></td><td>
-                    <div class="tm-time-flow"><span class="tm-time-tag">오전</span> 도시샤대 · 오사카</div>
-                    <ul class="tm-desc-list">
-                        <li><span class="tm-venue-title">호텔 조식·체크아웃</span><span class="tm-venue-text">교토 문화체험 출발</span></li>
-                        <li><span class="tm-venue-title">도시샤대학</span><span class="tm-venue-text">윤동주·정지용 시비</span></li>
-                        <li><span class="tm-venue-title">오사카 이동 · 오사카성 · 도톰보리 · 신사이바시</span><span class="tm-venue-text">약 1시간 이동 후 시내 체험</span></li>
-                        <li><span class="tm-venue-title">간사이공항 · KE726</span><span class="tm-venue-text">간사이 18:10 → 인천 20:25</span></li>
-                    </ul>
-                </td><td class="tm-side-cell">
-                    <div class="tm-side-block"><div class="tm-side-label">숙소</div><div class="tm-side-text">당일 <strong>인천 귀국</strong></div></div>
-                    <div class="tm-side-block"><div class="tm-side-label">식사</div><div class="tm-side-text"><strong>조</strong> 호텔<br><strong>중</strong> 자유식<br><strong>석</strong> 기내식(KE726)</div></div>
-                </td></tr>
-            </tbody>
+        <table class="std-table">
+          <thead><tr><th class="col-date">일자</th><th class="col-desc">상세 일정</th><th class="col-meal">식사</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="col-date"><strong>1일차</strong><br>11/5(목)</td>
+              <td class="col-desc">
+                <div><span class="time-tag">07:50</span>대한항공 <strong>KE2189</strong> 인천 → 고마쓰 09:40</div>
+                <ul class="desc-list">
+                  <li>입국 후 가나자와 이동 (약 40분)</li>
+                  <li><strong>윤봉길 의사 암장지</strong> 참배</li>
+                  <li>가나자와 문화체험 — <strong>겐로쿠엔 · 가나자와성 · 히가시 차야</strong></li>
+                  <li>도야마(토나미) 이동 (약 50분) · 호텔 투숙</li>
+                </ul>
+                <hr class="hotel-divider">
+                <div class="hotel-info"><i class="fa-solid fa-bed"></i> 호텔명 : 머큐어 도야마 토나미 리조트&amp;스파</div>
+              </td>
+              <td class="col-meal">
+                <div class="meal-wrapper">
+                  <div class="meal-simple"><strong>조:</strong><div>기내식</div></div>
+                  <div class="meal-simple"><strong>중:</strong><div>스시</div></div>
+                  <div class="meal-simple"><strong>석:</strong><div>호텔 세트</div></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-date"><strong>2일차</strong><br>11/6(금)</td>
+              <td class="col-desc">
+                <div><span class="time-tag">종일</span>★ <strong>富山県立伏木高等学校</strong> 공식 교류</div>
+                <ul class="desc-list">
+                  <li>호텔 조식·체크아웃 → 자매학교 이동</li>
+                  <li>환영식 · 수업 참관 · 호스트 학생 만남·교류</li>
+                  <li>중식 학교 제공 (학생·교사)</li>
+                  <li>학생 홈스테이 / 교사 다이와로이넷 도야마역전</li>
+                </ul>
+                <hr class="hotel-divider">
+                <div class="hotel-info"><i class="fa-solid fa-bed"></i> 학생: 홈스테이 · 교사: 다이와로이넷 도야마역전</div>
+              </td>
+              <td class="col-meal">
+                <div class="meal-wrapper">
+                  <div class="meal-simple"><strong>조:</strong><div>호텔</div></div>
+                  <div class="meal-simple"><strong>중:</strong><div>학교 제공</div></div>
+                  <div class="meal-simple"><strong>석:</strong><div>홈스테이</div></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-date"><strong>3일차</strong><br>11/7(토)</td>
+              <td class="col-desc">
+                <ul class="desc-list">
+                  <li>홈스테이 조식(학생) · 학교 집합·환송</li>
+                  <li>교토 이동 (약 4시간 40분 · 휴게 1회)</li>
+                  <li><strong>청수사</strong> · 니넨자카 · 산넨자카</li>
+                  <li><strong>금각사(킨카쿠지)</strong> · 호텔 투숙</li>
+                </ul>
+                <hr class="hotel-divider">
+                <div class="hotel-info"><i class="fa-solid fa-bed"></i> 호텔명 : 게이오 프렐리아 호텔 교토</div>
+              </td>
+              <td class="col-meal">
+                <div class="meal-wrapper">
+                  <div class="meal-simple"><strong>조:</strong><div>홈스테이/호텔</div></div>
+                  <div class="meal-simple"><strong>중:</strong><div>현지</div></div>
+                  <div class="meal-simple"><strong>석:</strong><div>야키니쿠</div></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-date"><strong>4일차</strong><br>11/8(일)</td>
+              <td class="col-desc">
+                <ul class="desc-list">
+                  <li>호텔 조식·체크아웃</li>
+                  <li><strong>도시샤대학</strong> — 윤동주·정지용 시비</li>
+                  <li>오사카 이동 (약 1시간) · <strong>오사카성 · 도톰보리 · 신사이바시</strong></li>
+                  <li>간사이공항 · 대한항공 <strong>KE726</strong> 18:10 → 인천 20:25</li>
+                </ul>
+              </td>
+              <td class="col-meal">
+                <div class="meal-wrapper">
+                  <div class="meal-simple"><strong>조:</strong><div>호텔</div></div>
+                  <div class="meal-simple"><strong>중:</strong><div>자유식</div></div>
+                  <div class="meal-simple"><strong>석:</strong><div>기내식</div></div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
-        
-        <div class="mt-4 text-xs text-right text-slate-600">
-            ※ 상기 일정은 현지 사정 및 항공 상황에 의해 다소 변경될 수 있습니다. · 쇼핑 일정 없음
+        <p class="print-remarks">※ 상기 일정은 항공 및 현지 사정에 따라 다소 변경될 수 있습니다. · 쇼핑 일정 없음</p>
+        <div class="footer-box">
+          <span>큐비글로벌 × 투어메이커 협업 제작</span>
+          <div class="manager-info">스루가이드 신은상 010-9242-3214 · 김회란 010-3453-0584 · 최민태 010-7369-5230</div>
         </div>
-        
-        <div class="print-footer-area mt-8">
-            <div class="text-sm text-slate-500 font-bold">큐비글로벌 × 투어메이커 협업 제작</div>
-            <div class="manager">통가이드 신은상 010-9242-3214 / 큐비 김회란 010-3453-0584 · 최민태 010-7369-5230</div>
-        </div>
+      </div>
 
-        <div class="print-pack" style="display:none">
-            <h2>해외여행 준비물</h2>
-            <div class="print-pack-grid">
-                <div class="print-pack-box"><strong>서류·출국</strong>여권(잔여 6개월) · 비짓재팬웹 QR · 여행자보험 · 카드·소액 현금</div>
-                <div class="print-pack-box"><strong>의류·건강</strong>경량 패딩 · 편한 운동화 · 상비약 · 세면도구 · 우산</div>
-                <div class="print-pack-box"><strong>전자기기</strong>충전기·보조배터리 · 콘센트 어댑터(일본 110V)</div>
-                <div class="print-pack-box"><strong>이번 일정</strong>홈스테이 선물(한국 소품) · 학교 교류 자료 · 단정한 복장</div>
-            </div>
-            <div style="border:1px solid #94a3b8;border-radius:6px;padding:10px;font-size:11px;margin-bottom:14px;">
-                <strong style="color:#0284c7;">✈ 대한항공 온라인 체크인 · 보조배터리</strong><br>
-                발권(E-티켓) 완료 후 출발 약 48시간 전 오픈 · 앱·홈페이지 체크인 권장<br>
-                보조배터리·전자담배: 위탁 금지 · 기내 사용·충전 금지 · 선반 보관 불가 · 단락 방지 · 1인 최대 2개 · 160Wh 초과 불가
-            </div>
-            <div class="print-qr">
-                <img src="assets/images/guidebook-qr.png" alt="스마트 가이드북 QR">
-                <p style="font-size:11px;margin-top:8px;">스마트폰으로 스캔하면 스마트 가이드북을 열 수 있습니다.</p>
-                <p style="font-size:10px;color:#64748b;">https://indadady.github.io/261105_Komatsu/</p>
-            </div>
+      <div class="print-page print-page-2">
+        <div class="std-header">
+          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjPMO83G1xHJIu1jKvn1GjQn_C3z42tM-LYvYPKcGIaYkarv47vw5TlYsJFjZxRLVm4e0yQutvIHXQ_VBUHdlu2p25QP7z1NAK2XsEUNUpxycDMpLzi7TJ390gXDpD5orf1OBAXwbwnPrasas06glRIv9rpqwN1YEQvy2fPbKRU4Ogpbo8SyH7NEnt-1FY=w320-h101" alt="QB Global">
+          <div class="std-doc-info">준비물 · QR · 2/2</div>
         </div>
+        <div class="std-title"><h1>해외여행 준비물 · 스마트 가이드북</h1></div>
+        <h2 class="print-section-title">출국 전 확인</h2>
+        <div class="print-check-grid">
+          <div class="print-check-item"><span class="print-check-box"></span><span>여권 (잔여 유효기간 6개월+)</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>비짓재팬웹(Visit Japan Web) QR</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>E-티켓 · 여행자보험</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>해외 사용 가능 카드 · 소액 현금</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>경량 패딩 · 편한 운동화 · 우산</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>상비약 · 세면도구</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>충전기·보조배터리(기내 휴대·절연)</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>일본 콘센트 어댑터(110V)</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>홈스테이 선물(한국 소품)</span></div>
+          <div class="print-check-item"><span class="print-check-box"></span><span>학교 교류 자료 · 단정한 복장</span></div>
+        </div>
+        <div class="print-seat-box">
+          <h3>✈ 대한항공(KE) 온라인 체크인 · 보조배터리 안내</h3>
+          <ul>
+            <li><strong>온라인 체크인</strong> : 발권(E-티켓) 완료 후 출발 약 48시간 전 오픈 · 대한항공 앱·홈페이지 권장</li>
+            <li><strong>좌석</strong> : 배정 좌석 확인 · 필요 시 공항에서 일행 여권 함께 제시해 인접 좌석 요청</li>
+            <li><strong>보조배터리·전자담배</strong> : 위탁 금지 · 기내 사용·충전 금지 · 선반 보관 불가 · 단락 방지 · 1인 최대 2개 · 160Wh 초과 불가</li>
+          </ul>
+        </div>
+        <div class="print-qr-panel">
+          <img src="assets/images/guidebook-qr.png" alt="스마트 가이드북 QR코드" width="128" height="128">
+          <div>
+            <h3>스마트 가이드북 QR</h3>
+            <p>스마트폰으로 스캔하면 스마트 가이드북을 열 수 있습니다.</p>
+            <p class="print-qr-url">https://indadady.github.io/261105_Komatsu/</p>
+          </div>
+        </div>
+        <div class="footer-box">
+          <span>큐비글로벌 × 투어메이커 협업 제작</span>
+          <div class="manager-info">김회란 010-3453-0584 · 최민태 010-7369-5230</div>
+        </div>
+      </div>
     </div>
     <!-- END Print-Only Area -->
 
