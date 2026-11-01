@@ -56,6 +56,10 @@
         
         .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes lockShake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); } }
+        .shake { animation: lockShake .45s ease-in-out; }
+        body.tm-secure-select { -webkit-user-select: none; user-select: none; }
+        body.tm-secure-select input, body.tm-secure-select textarea { -webkit-user-select: text; user-select: text; }
         
         .custom-icon { background: transparent; border: none; }
         .map-pin-wrap { display: flex; flex-direction: column; align-items: center; }
@@ -101,7 +105,7 @@
             @page { size: A4 portrait; margin: 10mm 10mm; }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             html, body { background: #fff !important; color: #1e293b !important; }
-            header, footer, section, .print\:hidden, .no-print, #event-day-bar, #phrase-modal, #tm-inquiry-modal { display: none !important; }
+            header, footer, section, .print\:hidden, .no-print, #event-day-bar, #phrase-modal, #tm-inquiry-modal, #guidebook-lock-modal, #toast { display: none !important; }
             body { padding: 0 !important; margin: 0 !important; }
             #print-area { display: block !important; width: 100%; box-sizing: border-box; }
             .print-page { display: flex; flex-direction: column; width: 100%; box-sizing: border-box; }
@@ -152,7 +156,32 @@
         }
     </style>
 </head>
-<body class="antialiased pb-20 md:pb-0 print:pb-0 print:bg-white">
+<body class="antialiased pb-20 md:pb-0 print:pb-0 print:bg-white tm-secure-select">
+
+    <!-- [Security Lock Modal] 출발 2주 전 자동 해제형 보안 잠금 (비번: 출발일 MMDD) -->
+    <div id="guidebook-lock-modal" class="fixed inset-0 z-[999] hidden items-center justify-center bg-slate-900/90 backdrop-blur-md px-4 no-print" role="dialog" aria-modal="true" aria-labelledby="guidebook-lock-title">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 md:p-8 shadow-2xl text-center border border-slate-100 animate-fade-in-up">
+            <div class="w-16 h-16 bg-sky-50 text-sky-700 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 shadow-sm">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 id="guidebook-lock-title" class="text-xl font-bold text-slate-800 mb-1">보안 접속 인증</h3>
+            <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+                본 가이드북은 저작권 및 일정 보호를 위해<br>
+                출발 2주 전까지 비밀번호 인증이 필요합니다.<br>
+                <span id="lock-password-hint" class="text-xs font-bold text-sky-700 mt-1 block">💡 힌트: 출발일 MM월DD → MMDD (예: 11월05 → 1105)</span>
+            </p>
+            <div class="space-y-3">
+                <input type="password" id="lock-password-input" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="비밀번호 4자리 입력" class="w-full text-center tracking-widest text-lg font-bold border-2 border-slate-200 focus:border-sky-600 rounded-2xl px-4 py-3 outline-none transition" aria-label="비밀번호 4자리">
+                <button type="button" onclick="verifyGuidebookPassword()" class="w-full bg-sky-700 hover:bg-sky-800 text-white font-bold py-3.5 rounded-2xl shadow-md transition text-sm">
+                    가이드북 입장하기
+                </button>
+            </div>
+            <p id="lock-error-msg" class="text-xs text-rose-600 font-bold mt-3 hidden">비밀번호가 일치하지 않습니다.</p>
+            <div class="mt-6 pt-4 border-t border-slate-100 text-[10px] text-slate-400">
+                큐비글로벌 × 투어메이커 협업 · 지적재산권 보호 구역
+            </div>
+        </div>
+    </div>
 
     <!-- 화면 표출 영역 (인쇄 시 숨김) -->
     <div class="print:hidden">
@@ -789,6 +818,10 @@
                                 종이 일정표 대신 본 스마트 가이드북을 선택한 오늘,<br>우리는 <strong class="text-emerald-600">1인당 평균 아래의 자원을 절감</strong>하며 숲과 지구를 보호했습니다.
                             </p>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-8">
+                                <div class="bg-amber-50 rounded-2xl p-5 border border-amber-200">
+                                    <h4 class="text-amber-700 text-xs font-bold mb-2">📊 실시간 가이드북 열람</h4>
+                                    <p class="text-2xl font-black text-emerald-700"><span id="tm-view-count" class="tm-view-count-val">...</span><span class="text-sm font-medium text-slate-500 ml-1">회</span></p>
+                                </div>
                                 <div class="bg-emerald-50 rounded-2xl p-5 border border-emerald-100">
                                     <h4 class="text-slate-500 text-xs font-bold mb-2">종이 절감</h4>
                                     <p class="text-2xl font-black text-slate-800">8<span class="text-sm font-medium text-slate-500 ml-1">장</span></p>
@@ -800,10 +833,6 @@
                                 <div class="bg-emerald-50 rounded-2xl p-5 border border-emerald-100">
                                     <h4 class="text-slate-500 text-xs font-bold mb-2">물 절약</h4>
                                     <p class="text-2xl font-black text-slate-800">75<span class="text-sm font-medium text-slate-500 ml-1">L</span></p>
-                                </div>
-                                <div class="bg-emerald-50 rounded-2xl p-5 border border-emerald-100">
-                                    <h4 class="text-slate-500 text-xs font-bold mb-2">실시간 가이드북 열람</h4>
-                                    <p class="text-2xl font-black text-emerald-700"><span id="tm-view-count" class="tm-view-count-val">...</span><span class="text-sm font-medium text-slate-500 ml-1">회</span></p>
                                 </div>
                             </div>
                             <div class="bg-slate-800 text-white rounded-xl p-4 text-center text-sm font-medium leading-relaxed shadow-md border border-slate-700">
@@ -823,10 +852,17 @@
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
                             <h3 class="text-xl font-bold mb-1">투어메이커 여행·가이드북 문의</h3>
-                            <p class="text-sm text-sky-100">📊 실시간 가이드북 열람 : <span class="tm-view-count-val">...</span>회</p>
+                            <p class="text-sm text-sky-100">큐비글로벌 × 투어메이커 협업 제작</p>
                         </div>
                         <button type="button" onclick="openTmInquiryModal()" class="bg-white text-sky-900 font-bold px-5 py-3 rounded-xl shadow-lg hover:bg-sky-50">투어메이커 맞춤 견적 · 상담 문의</button>
                     </div>
+                </div>
+                <div class="max-w-2xl mb-6 px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-600 text-[11px] text-slate-300 leading-relaxed text-left">
+                    <p class="font-bold text-white mb-0.5">
+                        <i class="fa-solid fa-shield-halved text-sky-300 mr-1"></i> 지적재산권 보호 및 외부 유출 금지 안내
+                    </p>
+                    본 스마트 가이드북은 <strong class="text-white">(주)투어메이커의 고유 지적재산</strong>이며, <strong class="text-white">큐비글로벌(QB Global)</strong> 협업으로 제작되었습니다.
+                    <strong class="tm-client-name text-white">청명고등학교</strong> 전용 제안서·스마트 가이드북이며, 외부 유출 시 <strong class="text-white">접속 IP 및 열람 횟수(현재 <span class="tm-view-count-val font-extrabold text-rose-300">...</span>회)가 자동 기록</strong>됩니다.
                 </div>
                 <div class="flex flex-wrap items-center justify-between gap-4 text-sm text-center md:text-left">
                     <p>본 스마트 가이드북은 <strong class="text-white">청명고등학교</strong> 국제교류 프로그램을 위해 <strong class="text-white">큐비글로벌(QB Global)</strong>과 <strong class="text-white">투어메이커(Tourmaker)</strong>의 협업으로 제작되었습니다.</p>
@@ -834,7 +870,7 @@
                         <img src="assets/images/tourmaker-logo.png" alt="Tourmaker" class="h-5"> tourmaker.kr
                     </a>
                 </div>
-                <p class="text-xs text-slate-500 mt-4 text-center md:text-left">&copy; 2026 QB Global × Tourmaker</p>
+                <p class="text-xs text-slate-500 mt-4 text-center md:text-left">&copy; 2026 큐비글로벌(QB Global) × 투어메이커 협업 제작</p>
             </div>
         </footer>
     </div>
@@ -1019,8 +1055,21 @@
     </div>
     <!-- END Print-Only Area -->
 
+    <div id="toast" class="fixed bottom-24 md:bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl z-[9999] transition-all duration-300 translate-y-20 opacity-0 no-print pointer-events-none text-sm font-bold flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-green-400"></i> <span id="toast-msg"></span>
+    </div>
+
     <!-- Scripts -->
     <script>
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-msg');
+            if (!toast || !msg) return;
+            msg.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
         const TEST_DATE = "";
         const EVENT_DAYS = {
             '2026-11-05':'day1','2026-11-06':'day2','2026-11-07':'day3','2026-11-08':'day4'
@@ -1688,8 +1737,10 @@
             window.addEventListener('resize', autoResize);
         })();
 
-        const TM_GUIDEBOOK_SLUG='261105_Komatsu';
+        const TM_GUIDEBOOK_SLUG='261105_Komatsu'; // 기존 열람 카운터 슬러그 유지
         const TM_GUIDEBOOK_NAME='청명고등학교 일본 자매교류';
+        const TM_CLIENT_NAME='청명고등학교'; // 무단공유 안내 [단체명]
+        document.querySelectorAll('.tm-client-name').forEach((el)=>{ el.textContent = TM_CLIENT_NAME; });
         function openTmInquiryModal(){
             const m=document.getElementById('tm-inquiry-modal');
             if(!m) return;
@@ -1733,6 +1784,117 @@
             els.forEach(el=>{ el.textContent=count.toLocaleString(); });
         }
         initTmViewCounter();
+
+        // ==========================================
+        // [투어메이커] 경량 복사·우클릭 차단 + 스마트 보안 잠금
+        // 잠금: 출발 2주 전(D-14)보다 이전이면 MMDD 비번 / D-14부터 자동 해제
+        // ==========================================
+        (function initSecurityShield() {
+            const isEditable = (el) => {
+                if (!el) return false;
+                const tag = (el.tagName || '').toUpperCase();
+                return tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable;
+            };
+            document.addEventListener('contextmenu', (e) => {
+                if (isEditable(e.target)) return;
+                e.preventDefault();
+            });
+            document.addEventListener('selectstart', (e) => {
+                if (isEditable(e.target)) return;
+                e.preventDefault();
+            });
+            document.addEventListener('dragstart', (e) => {
+                if (isEditable(e.target)) return;
+                e.preventDefault();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (isEditable(e.target)) return;
+                const key = (e.key || '').toUpperCase();
+                const mod = e.ctrlKey || e.metaKey;
+                if (
+                    key === 'F12' ||
+                    (mod && e.shiftKey && ['I', 'J', 'C'].includes(key)) ||
+                    (mod && ['C', 'U', 'S'].includes(key))
+                ) {
+                    e.preventDefault();
+                    if (typeof showToast === 'function') {
+                        showToast('🔒 투어메이커 저작권 보호 문서로 복사 및 소스 열람이 제한됩니다.');
+                    }
+                }
+            });
+        })();
+
+        (function initSmartSecurityLock() {
+            const EVENT_START_DATE = (typeof EVENT_START === 'string' && EVENT_START) || Object.keys(EVENT_DAYS).sort()[0] || '2026-11-05';
+            const AUTO_PASS_MM = EVENT_START_DATE.slice(5, 7);
+            const AUTO_PASS_DD = EVENT_START_DATE.slice(8, 10);
+            const AUTO_PASS_MMDD = AUTO_PASS_MM + AUTO_PASS_DD; // 1105
+            const UNLOCK_DAYS_BEFORE = 14;
+            const STORAGE_KEY = 'tm_unlocked_' + EVENT_START_DATE;
+            const hintEl = document.getElementById('lock-password-hint');
+            if (hintEl) {
+                hintEl.textContent = `💡 힌트: 출발일 ${AUTO_PASS_MM}월${AUTO_PASS_DD} → ${AUTO_PASS_MMDD}`;
+            }
+
+            function setLockVisible(on) {
+                const modal = document.getElementById('guidebook-lock-modal');
+                if (!modal) return;
+                modal.classList.toggle('hidden', !on);
+                modal.classList.toggle('flex', on);
+                document.documentElement.style.overflow = on ? 'hidden' : '';
+                document.body.style.overflow = on ? 'hidden' : '';
+            }
+
+            function shouldRequirePassword() {
+                const today = getGuidebookToday();
+                return ymdDiffDays(EVENT_START_DATE, today) > UNLOCK_DAYS_BEFORE;
+            }
+
+            function checkLockCondition() {
+                const unlocked = localStorage.getItem(STORAGE_KEY) === 'true';
+                if (shouldRequirePassword() && !unlocked) {
+                    setLockVisible(true);
+                    const input = document.getElementById('lock-password-input');
+                    if (input) setTimeout(() => input.focus(), 80);
+                } else {
+                    setLockVisible(false);
+                }
+            }
+
+            window.verifyGuidebookPassword = function () {
+                const inputEl = document.getElementById('lock-password-input');
+                const errorMsg = document.getElementById('lock-error-msg');
+                const inputVal = (inputEl?.value || '').trim();
+                if (inputVal === AUTO_PASS_MMDD) {
+                    localStorage.setItem(STORAGE_KEY, 'true');
+                    if (errorMsg) errorMsg.classList.add('hidden');
+                    setLockVisible(false);
+                    if (typeof showToast === 'function') {
+                        showToast('🔓 인증되었습니다. 가이드북을 열람합니다.');
+                    }
+                } else {
+                    if (errorMsg) errorMsg.classList.remove('hidden');
+                    if (inputEl) {
+                        inputEl.classList.add('border-rose-500', 'shake');
+                        setTimeout(() => inputEl.classList.remove('border-rose-500', 'shake'), 500);
+                        inputEl.select();
+                    }
+                }
+            };
+
+            document.getElementById('lock-password-input')?.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    window.verifyGuidebookPassword();
+                }
+            });
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', checkLockCondition);
+            } else {
+                checkLockCondition();
+            }
+        })();
     </script>
 </body>
 </html>
